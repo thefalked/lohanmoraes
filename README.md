@@ -1,6 +1,6 @@
 # Lohan Moraes
 
-[lohanmoraes.com](https://lohanmoraes.com)
+[www.lohanmoraes.com](https://www.lohanmoraes.com)
 
 Portfolio de Lohan Moraes e LMart (LM Produções Artísticas): shows, aulas e produção.
 
