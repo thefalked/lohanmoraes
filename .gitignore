@@ -1,0 +1,18 @@
+# Dependencies & build
+node_modules
+dist
+dist-ssr
+*.local
+
+# Fallow cache
+.fallow/
+
+# Logs
+logs
+*.log
+
+# Editor
+.DS_Store
+
+# imgs
+imgs

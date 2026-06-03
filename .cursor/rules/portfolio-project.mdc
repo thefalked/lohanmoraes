@@ -1,0 +1,27 @@
+---
+description: Lohan Moraes portfolio stack, architecture, and tooling
+globs: src/**,.github/**
+alwaysApply: false
+---
+
+# Lohan Moraes Portfolio
+
+## Stack
+
+- **Runtime / PM**: Bun
+- **Framework**: React 19 + Vite+ (`vp` CLI)
+- **Routing**: TanStack Router (`src/routes/`)
+- **Motion**: Lenis + GSAP ScrollTrigger
+- **Styling**: Tailwind CSS v4 + Tailwind Variants (`tv`)
+
+## Commands
+
+| Task | Command |
+|------|---------|
+| Dev server | `bun run dev` |
+| Build | `bun run build` |
+| Validate | `bun run validate` |
+
+## CI/CD
+
+GitHub Actions (`.github/workflows/deploy.yml`) → GitHub Pages SPA.

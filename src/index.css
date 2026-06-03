@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --text-display-xl: 3.5rem;
+  --text-display-xl--line-height: 1;
+  --text-display-lg: 2.5rem;
+  --text-display-lg--line-height: 1.05;
+  --text-display-md: 1.75rem;
+  --text-display-md--line-height: 1.1;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.5;
+
+  --shadow-stage-card:
+    0 0 0 1px rgb(224 34 183 / 0.08), 0 0 40px rgb(224 34 183 / 0.06),
+    inset 0 0 32px rgb(138 43 226 / 0.04);
+
+  --container-content: 72rem;
+  --radius-stage: 1rem;
+  --radius-stage-sm: 0.75rem;
+
+  --color-accent: #e022b7;
+  --color-accent-secondary: #8a2be2;
+  --color-accent-muted: #c45ab0;
+  --color-accent-soft: rgb(224 34 183 / 0.12);
+  --color-accent-glow: rgb(224 34 183 / 0.45);
+  --color-surface: #0a0a0a;
+  --color-surface-elevated: #141018;
+  --color-warm: #634133;
+  --color-text-bright: #f5f5f5;
+  --color-text: #d8d0de;
+  --color-text-muted: #a89bb0;
+  --color-border: rgb(245 245 245 / 0.1);
+  --color-selection: rgb(224 34 183 / 0.35);
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+    color-scheme: dark;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  html,
+  body,
+  #root {
+    @apply min-h-full;
+  }
+
+  body {
+    @apply font-body bg-surface text-text antialiased overflow-x-hidden;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  a {
+    @apply text-accent-muted no-underline transition-colors duration-200;
+  }
+
+  a:hover {
+    @apply text-accent;
+  }
+
+  ::selection,
+  ::-moz-selection {
+    @apply bg-selection text-text-bright;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@utility stage-glow {
+  text-shadow: 0 0 12px var(--color-accent-glow);
+}
+
+@utility stage-glow-strong {
+  text-shadow:
+    0 0 4px var(--color-accent),
+    0 0 20px var(--color-accent-glow);
+}
+
+@utility stage-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(224 34 183 / 0.45);
+    border-radius: 999px;
+  }
+}

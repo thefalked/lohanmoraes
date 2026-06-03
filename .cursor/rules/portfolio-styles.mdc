@@ -1,0 +1,24 @@
+---
+description: Stage theme tokens, Tailwind Variants, responsive conventions
+globs: src/**/*.{tsx,css}
+alwaysApply: false
+---
+
+# Styling Conventions
+
+## Tailwind Variants (`tv`)
+
+All component styling uses `tv()` with named slots. No inline className strings on components.
+
+## Theme Tokens (`@theme` in `index.css`)
+
+- **Fonts**: `font-display` (Oswald), `font-body` (DM Sans)
+- **Colors**: `accent`, `accent-secondary`, `surface`, `surface-elevated`, `text-bright`, `text-muted`, `warm`
+- **Shadows**: `shadow-stage-card`
+- **Sizing**: `max-w-content` via `--container-content`
+- **Glow utilities**: `stage-glow`, `stage-glow-strong`
+
+## Responsive
+
+- Mobile-first: base = mobile, override at `lg:` only.
+- Document scroll (Lenis); sections use `min-h-dvh` where needed.

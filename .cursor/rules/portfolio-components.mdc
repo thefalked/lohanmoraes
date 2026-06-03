@@ -1,0 +1,45 @@
+---
+description: React component architecture for Lohan portfolio
+globs: src/components/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Component Conventions
+
+## File Organization
+
+Each component lives in `src/components/<name>/` with these files:
+
+| File | Purpose |
+|------|---------|
+| `index.tsx` | Public entry — wires hook + view, sole export |
+| `<name>.view.tsx` | Pure presentational component (receives all data as props) |
+| `use-<name>.ts` | Hook with component state/logic |
+| `<name>.logic.ts` | Pure functions (parsing, transforms, no React) |
+| `<name>.content.ts` | Static strings, labels, constants |
+| `*.test.ts(x)` | Colocated tests |
+
+## React 19 Types
+
+Import event **handler** types directly — never use the deprecated standalone event types (`FormEvent`, `ChangeEvent`, etc.) or `React.*` namespace:
+
+```tsx
+// Good
+import type { SubmitEventHandler, ChangeEventHandler, KeyboardEventHandler } from "react";
+onSubmit: SubmitEventHandler<HTMLFormElement>;
+
+// Bad — deprecated
+import type { FormEvent } from "react";
+onSubmit: (e: React.FormEvent) => void;
+```
+
+## Styling
+
+- All styles live in `tv()` slots — never use ID selectors or separate CSS rules for component elements.
+- Browser resets (margin, padding, font inheritance) are handled by Tailwind Preflight — don't duplicate in slots.
+- Mobile-first only: set mobile styles as base, override at `lg:` for desktop. Never use `max-*` variants.
+
+## Exports
+
+- Named exports only — no default exports.
+- `index.tsx` re-exports the composed component as the public API.
