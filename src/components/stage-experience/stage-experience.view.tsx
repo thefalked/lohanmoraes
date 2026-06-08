@@ -12,7 +12,7 @@ const stageExperience = tv({
     root: "pointer-events-none fixed inset-0 -z-10",
     overlay: [
       "pointer-events-none absolute inset-0 z-10",
-      "bg-linear-to-b from-surface/95 via-surface/80 to-surface/95",
+      "bg-linear-to-b from-transparent via-surface/25 to-surface/55",
     ],
   },
 });

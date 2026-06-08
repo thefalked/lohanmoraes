@@ -7,7 +7,7 @@ const teachingSection = tv({
   slots: {
     root: "scroll-mt-20 px-5 py-24 lg:px-10 lg:py-32",
     inner: "mx-auto max-w-content",
-    copy: ["rounded-stage bg-surface/60 p-6 backdrop-blur-md"],
+    copy: ["rounded-stage bg-surface/45 p-6 backdrop-blur-sm"],
     sub: "mt-4 max-w-2xl text-body-lg text-text-muted",
     lessonsLabel: [
       "mt-10 font-display text-body-sm font-medium uppercase tracking-[0.2em]",

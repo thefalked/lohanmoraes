@@ -7,10 +7,10 @@ const heroSection = tv({
     root: "relative flex min-h-dvh flex-col justify-end overflow-hidden",
     lcpImage: "sr-only",
     scrim: [
-      "absolute inset-0 bg-linear-to-t from-surface via-surface/70 to-transparent",
+      "absolute inset-0 bg-linear-to-t from-surface/90 via-surface/35 to-transparent",
       "pointer-events-none",
     ],
-    scrimSide: "absolute inset-0 bg-surface/45 pointer-events-none",
+    scrimSide: "absolute inset-0 bg-surface/15 pointer-events-none",
     content: "relative z-20 mx-auto w-full max-w-content px-5 pb-16 pt-32 lg:px-10 lg:pb-24",
     roles: "mb-4 flex flex-wrap gap-3",
     role: [

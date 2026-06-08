@@ -11,7 +11,7 @@ const showsSection = tv({
       "px-5 py-24 lg:px-10 lg:py-32",
     ],
     inner: "mx-auto max-w-content",
-    intro: ["mb-12 max-w-2xl", "rounded-stage bg-surface/60 p-6 backdrop-blur-md"],
+    intro: ["mb-12 max-w-2xl", "rounded-stage bg-surface/45 p-6 backdrop-blur-sm"],
     sub: "mt-4 text-body-lg text-text-muted",
     track: [
       "flex gap-6 overflow-x-auto pb-4 stage-scrollbar",
