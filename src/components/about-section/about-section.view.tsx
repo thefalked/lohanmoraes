@@ -7,7 +7,7 @@ const aboutSection = tv({
   slots: {
     root: "scroll-mt-20 px-5 py-24 lg:px-10 lg:py-32",
     inner: "mx-auto grid max-w-content gap-12 lg:grid-cols-2 lg:gap-16",
-    copy: "flex flex-col gap-6",
+    copy: ["flex flex-col gap-6", "rounded-stage bg-surface/60 p-6 backdrop-blur-md"],
     body: "text-body-lg text-text-muted",
     gallery: "grid grid-cols-2 gap-4",
     photoMain: "col-span-2 overflow-hidden rounded-stage",

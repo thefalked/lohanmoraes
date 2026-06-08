@@ -7,6 +7,7 @@ const teachingSection = tv({
   slots: {
     root: "scroll-mt-20 px-5 py-24 lg:px-10 lg:py-32",
     inner: "mx-auto max-w-content",
+    copy: ["rounded-stage bg-surface/60 p-6 backdrop-blur-md"],
     sub: "mt-4 max-w-2xl text-body-lg text-text-muted",
     lessonsLabel: [
       "mt-10 font-display text-body-sm font-medium uppercase tracking-[0.2em]",
@@ -43,22 +44,24 @@ export function TeachingSectionView({
       aria-labelledby="ensino-heading"
     >
       <div className={styles.inner()}>
-        <SplitHeading lines={[...headingLines]} accentIndex={0} />
-        <h2 id="ensino-heading" className="sr-only">
-          {srHeading}
-        </h2>
-        <p data-reveal className={styles.sub()}>
-          {teaching.description}
-        </p>
-        <p data-reveal className={styles.lessonsLabel()}>
-          {teaching.lessonsLabel}
-        </p>
-        <div className={styles.chips()}>
-          {teaching.instruments.map((instrument) => (
-            <span key={instrument} data-reveal className={styles.chip()}>
-              {instrument}
-            </span>
-          ))}
+        <div className={styles.copy()}>
+          <SplitHeading lines={[...headingLines]} accentIndex={0} />
+          <h2 id="ensino-heading" className="sr-only">
+            {srHeading}
+          </h2>
+          <p data-reveal className={styles.sub()}>
+            {teaching.description}
+          </p>
+          <p data-reveal className={styles.lessonsLabel()}>
+            {teaching.lessonsLabel}
+          </p>
+          <div className={styles.chips()}>
+            {teaching.instruments.map((instrument) => (
+              <span key={instrument} data-reveal className={styles.chip()}>
+                {instrument}
+              </span>
+            ))}
+          </div>
         </div>
         <div data-reveal className={styles.productionBlock()}>
           <h3 className={styles.productionTitle()}>{teaching.production.headline}</h3>

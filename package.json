@@ -22,6 +22,7 @@
     "validate": "vp fmt --check && vp lint --tsconfig ./tsconfig.test.json && vp test run",
     "assets:brand": "bun scripts/generate-brand-assets.ts",
     "assets:photos": "bun scripts/compress-photos.ts",
+    "assets:cutouts": "bun scripts/generate-cutouts.ts",
     "assets": "bun run assets:brand && bun run assets:photos",
     "fallow": "fallow",
     "fallow:audit": "fallow audit"
@@ -39,6 +40,7 @@
     "three": "^0.184.0"
   },
   "devDependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/router-plugin": "^1.168.11",
     "@testing-library/jest-dom": "^6.9.1",

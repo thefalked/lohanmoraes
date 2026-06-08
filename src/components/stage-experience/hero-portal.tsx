@@ -51,7 +51,13 @@ export function HeroPortal() {
     <group ref={groupRef} position={[0, 0.2, 0]}>
       <mesh>
         <planeGeometry args={[planeSize.width, planeSize.height]} />
-        <meshBasicMaterial map={texture} toneMapped={false} transparent opacity={0.95} />
+        <meshBasicMaterial
+          map={texture}
+          toneMapped={false}
+          transparent
+          opacity={0.95}
+          depthWrite={false}
+        />
       </mesh>
       <mesh ref={ringRef} position={[0, 0, 0.6]}>
         <torusGeometry args={[3.1, 0.045, 16, 128]} />

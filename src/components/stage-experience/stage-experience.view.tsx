@@ -10,6 +10,10 @@ const StageExperienceCanvas = lazy(() =>
 const stageExperience = tv({
   slots: {
     root: "pointer-events-none fixed inset-0 -z-10",
+    overlay: [
+      "pointer-events-none absolute inset-0 z-10",
+      "bg-linear-to-b from-surface/95 via-surface/80 to-surface/95",
+    ],
   },
 });
 
@@ -27,6 +31,7 @@ export function StageExperienceView({ enabled, progressRef, smoothRef }: StageEx
       <Suspense fallback={null}>
         <StageExperienceCanvas scrollRefs={{ progressRef, smoothRef }} />
       </Suspense>
+      <div className={styles.overlay()} />
     </div>
   );
 }

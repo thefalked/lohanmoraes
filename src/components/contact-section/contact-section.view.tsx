@@ -8,7 +8,7 @@ const contactSection = tv({
   slots: {
     root: [
       "scroll-mt-20 border-t border-border px-5 py-24",
-      "bg-linear-to-b from-surface-elevated to-surface lg:px-10 lg:py-32",
+      "bg-linear-to-b from-surface-elevated via-surface/95 to-surface lg:px-10 lg:py-32",
     ],
     inner: "mx-auto flex max-w-content flex-col items-start gap-8",
     intro: "max-w-xl text-body-lg text-text-muted",

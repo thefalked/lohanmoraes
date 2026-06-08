@@ -71,6 +71,7 @@ export function PhotoCloud() {
             transparent
             opacity={0.92}
             toneMapped={false}
+            depthWrite={false}
           />
         </mesh>
       ))}
