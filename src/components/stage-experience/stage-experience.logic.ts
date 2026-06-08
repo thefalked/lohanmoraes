@@ -1,9 +1,38 @@
+import type { Texture } from "three";
+
 export const STAGE_DPR_MAX = 1.75;
 export const STAGE_DPR_MOBILE_MAX = 1.25;
 export const STAGE_DPR_MIN = 1;
 export const PARTICLE_COUNT_DESKTOP = 640;
 export const PARTICLE_COUNT_MOBILE = 192;
 export const MOBILE_BREAKPOINT = 768;
+
+export function planeDimensions(
+  width: number,
+  height: number,
+  maxSize: number,
+): { width: number; height: number } {
+  if (width <= 0 || height <= 0) {
+    return { width: maxSize, height: maxSize };
+  }
+  const scale = Math.min(maxSize / width, maxSize / height);
+  return { width: width * scale, height: height * scale };
+}
+
+export function textureImageSize(texture: Texture): { width: number; height: number } {
+  const image = texture.image as {
+    naturalWidth?: number;
+    naturalHeight?: number;
+    width?: number;
+    height?: number;
+  } | null;
+  if (!image) {
+    return { width: 1, height: 1 };
+  }
+  const width = image.naturalWidth ?? image.width ?? 1;
+  const height = image.naturalHeight ?? image.height ?? 1;
+  return { width, height };
+}
 
 export type SectionPhase = "hero" | "orbit" | "depth" | "finale";
 

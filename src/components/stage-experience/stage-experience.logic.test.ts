@@ -4,6 +4,7 @@ import {
   getCanvasDpr,
   lerpPhase,
   particleCountForViewport,
+  planeDimensions,
   sectionPhase,
   shouldRenderStageExperience,
 } from "./stage-experience.logic";
@@ -30,6 +31,18 @@ describe("stage-experience.logic", () => {
   it("gates rendering on motion preference", () => {
     expect(shouldRenderStageExperience(true)).toBe(true);
     expect(shouldRenderStageExperience(false)).toBe(false);
+  });
+
+  it("fits plane dimensions within max size preserving aspect", () => {
+    const landscape = planeDimensions(1920, 1080, 5.2);
+    expect(landscape.width).toBe(5.2);
+    expect(landscape.height).toBeCloseTo(2.925, 5);
+
+    const portrait = planeDimensions(1080, 1920, 3.2);
+    expect(portrait.width).toBeCloseTo(1.8, 5);
+    expect(portrait.height).toBe(3.2);
+
+    expect(planeDimensions(1000, 1000, 4)).toEqual({ width: 4, height: 4 });
   });
 
   it("scales particle counts by viewport", () => {

@@ -1,11 +1,15 @@
 import { useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { AdditiveBlending, Group, Mesh, MeshBasicMaterial } from "three";
 
 import { stageExperienceContent } from "./stage-experience.content";
 import { useStageScroll } from "./stage-experience-scroll-context";
-import { lerpPhase } from "./stage-experience.logic";
+import { lerpPhase, planeDimensions, textureImageSize } from "./stage-experience.logic";
+
+const HERO_PLANE_MAX = 5.2;
+const GLOW_SCALE_X_FACTOR = 6.5 / 5.2;
+const GLOW_SCALE_Y_FACTOR = 4.5 / 3.4;
 
 export function HeroPortal() {
   const groupRef = useRef<Group>(null);
@@ -13,6 +17,15 @@ export function HeroPortal() {
   const glowRef = useRef<Mesh>(null);
   const texture = useTexture(stageExperienceContent.heroImage);
   const { progressRef, smoothRef } = useStageScroll();
+  const planeSize = useMemo(() => {
+    const { width, height } = textureImageSize(texture);
+    return planeDimensions(width, height, HERO_PLANE_MAX);
+  }, [texture]);
+  const glowScale = useMemo(
+    () =>
+      [planeSize.width * GLOW_SCALE_X_FACTOR, planeSize.height * GLOW_SCALE_Y_FACTOR, 1] as const,
+    [planeSize.height, planeSize.width],
+  );
 
   useFrame(({ clock }) => {
     smoothRef.current = lerpPhase(smoothRef.current, progressRef.current, 0.08);
@@ -37,7 +50,7 @@ export function HeroPortal() {
   return (
     <group ref={groupRef} position={[0, 0.2, 0]}>
       <mesh>
-        <planeGeometry args={[5.2, 3.4]} />
+        <planeGeometry args={[planeSize.width, planeSize.height]} />
         <meshBasicMaterial map={texture} toneMapped={false} transparent opacity={0.95} />
       </mesh>
       <mesh ref={ringRef} position={[0, 0, 0.6]}>
@@ -49,7 +62,7 @@ export function HeroPortal() {
           blending={AdditiveBlending}
         />
       </mesh>
-      <mesh ref={glowRef} position={[0, 0, -0.2]} scale={[6.5, 4.5, 1]}>
+      <mesh ref={glowRef} position={[0, 0, -0.2]} scale={glowScale}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           color={stageExperienceContent.accentSecondary}

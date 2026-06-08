@@ -5,9 +5,10 @@ import { DoubleSide, Group, MathUtils, Mesh } from "three";
 
 import { stageExperienceContent } from "./stage-experience.content";
 import { useStageScroll } from "./stage-experience-scroll-context";
-import { lerpPhase } from "./stage-experience.logic";
+import { lerpPhase, planeDimensions, textureImageSize } from "./stage-experience.logic";
 
 const ORBIT_RADIUS = 5.5;
+const PHOTO_PLANE_MAX = 3.2;
 
 export function PhotoCloud() {
   const groupRef = useRef<Group>(null);
@@ -20,14 +21,18 @@ export function PhotoCloud() {
     () =>
       stageExperienceContent.photoCloud.map((_, index) => {
         const angle = (index / stageExperienceContent.photoCloud.length) * Math.PI * 2;
+        const { width, height } = textureImageSize(textures[index]);
+        const plane = planeDimensions(width, height, PHOTO_PLANE_MAX);
         return {
           angle,
           y: Math.sin(angle * 2) * 0.8,
           scale: 0.85 + (index % 3) * 0.12,
           tilt: MathUtils.degToRad((index % 5) * 4 - 8),
+          planeWidth: plane.width,
+          planeHeight: plane.height,
         };
       }),
-    [],
+    [textures],
   );
 
   useFrame(({ clock }) => {
@@ -52,14 +57,14 @@ export function PhotoCloud() {
 
   return (
     <group ref={groupRef} position={[0, -0.5, -2]}>
-      {layouts.map((_layout, index) => (
+      {layouts.map((layout, index) => (
         <mesh
           key={urls[index]}
           ref={(node) => {
             if (node) meshRefs.current[index] = node;
           }}
         >
-          <planeGeometry args={[2.4, 3.2]} />
+          <planeGeometry args={[layout.planeWidth, layout.planeHeight]} />
           <meshBasicMaterial
             map={textures[index]}
             side={DoubleSide}
