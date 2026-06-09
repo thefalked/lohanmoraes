@@ -1,11 +1,11 @@
 import type { Texture } from "three";
 
-export const STAGE_DPR_MAX = 1.75;
-export const STAGE_DPR_MOBILE_MAX = 1.25;
-export const STAGE_DPR_MIN = 1;
-export const PARTICLE_COUNT_DESKTOP = 640;
-export const PARTICLE_COUNT_MOBILE = 192;
-export const MOBILE_BREAKPOINT = 768;
+const STAGE_DPR_MAX = 1.75;
+const STAGE_DPR_MOBILE_MAX = 1.25;
+const STAGE_DPR_MIN = 1;
+const PARTICLE_COUNT_DESKTOP = 640;
+const PARTICLE_COUNT_MOBILE = 192;
+const MOBILE_BREAKPOINT = 768;
 
 export function planeDimensions(
   width: number,

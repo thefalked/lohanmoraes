@@ -2,6 +2,7 @@ import { describe, expect, it } from "vite-plus/test";
 
 import { guitarPhotoAsset } from "./guitar-chords.content";
 import {
+  activeStorySection,
   cameraPosition,
   chapterIndex,
   chapterOpacity,
@@ -23,10 +24,13 @@ import {
   guitarPlaneContentTopY,
   guitarPlaneOffsetY,
   guitarPlaneSize,
+  guitarSpiralBounds,
+  guitarStorySections,
   pinScrollHeight,
   scrollProgressPercent,
   shouldRenderGuitarChords,
   shouldSnapExperienceProgress,
+  spiralPoint,
   stepMusicParticle,
 } from "./guitar-chords.logic";
 
@@ -59,6 +63,46 @@ describe("guitar-chords.logic", () => {
   it("anchors the guitar plane on the body focus point", () => {
     expect(guitarPlaneOffsetY()).toBeCloseTo(-guitarBodyFocusY(), 4);
     expect(guitarBodyFocusY()).toBeLessThan(0);
+  });
+
+  it("orders guitar content bounds from headstock to body", () => {
+    expect(guitarPlaneContentTopY()).toBeGreaterThan(guitarPlaneContentBottomY());
+    expect(guitarBodyFocusY()).toBeGreaterThan(guitarPlaneContentBottomY());
+    expect(guitarBodyFocusY()).toBeLessThan(guitarPlaneContentTopY());
+    expect(guitarPhotoAsset.contentTop).toBeLessThan(guitarPhotoAsset.contentBottom);
+  });
+
+  it("sizes spiral bounds around the guitar body", () => {
+    const bounds = guitarSpiralBounds();
+    const plane = guitarPlaneSize();
+    expect(bounds.yCenter).toBeCloseTo(guitarPlaneOffsetY(), 4);
+    expect(bounds.height).toBeGreaterThan(0);
+    expect(bounds.height).toBeLessThan(plane.height);
+    expect(bounds.radiusX).toBeGreaterThan(bounds.radiusZ);
+  });
+
+  it("traces spiral points from top to bottom", () => {
+    const bounds = guitarSpiralBounds();
+    const start = spiralPoint(
+      0,
+      bounds.height,
+      bounds.radiusX,
+      bounds.radiusZ,
+      1.5,
+      bounds.yCenter,
+    );
+    const end = spiralPoint(1, bounds.height, bounds.radiusX, bounds.radiusZ, 1.5, bounds.yCenter);
+    expect(start.y).toBeGreaterThan(end.y);
+    expect(Math.hypot(start.x, start.z)).toBeCloseTo(bounds.radiusX, 2);
+    expect(Math.hypot(end.x, end.z)).toBeCloseTo(bounds.radiusX, 2);
+  });
+
+  it("groups chapters into story sections and resolves the active section", () => {
+    const sections = guitarStorySections();
+    expect(sections[0]?.id).toBe("intro");
+    expect(sections.some((section) => section.id === "sobre")).toBe(true);
+    expect(activeStorySection(3, sections).id).toBe("sobre");
+    expect(activeStorySection(0, sections).id).toBe("intro");
   });
 
   it("alternates panel sides by chapter index", () => {
@@ -131,6 +175,16 @@ describe("guitar-chords.logic", () => {
 
   it("returns pin scroll height scaled to chapter count", () => {
     expect(pinScrollHeight()).toBe(`${GUITAR_CHAPTER_COUNT * GUITAR_VH_PER_CHAPTER}vh`);
+  });
+
+  it("creates a deterministic particle field for the same count", () => {
+    const first = createAnimatedMusicParticles(6);
+    const second = createAnimatedMusicParticles(6);
+    expect(first).toHaveLength(6);
+    expect(second).toHaveLength(6);
+    expect(first.map((particle) => particle.symbol)).toEqual(
+      second.map((particle) => particle.symbol),
+    );
   });
 
   it("drifts music particles and pushes them away from the cursor", () => {

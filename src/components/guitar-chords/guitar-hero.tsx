@@ -3,10 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { ClampToEdgeWrapping, Group, SRGBColorSpace } from "three";
 
-import {
-  planeDimensions,
-  textureImageSize,
-} from "../stage-experience/stage-experience.logic";
+import { planeDimensions, textureImageSize } from "../stage-experience/stage-experience.logic";
 import { guitarPhotoAsset } from "./guitar-chords.content";
 import { guitarPlaneOffsetY, guitarPlaneSize } from "./guitar-chords.logic";
 

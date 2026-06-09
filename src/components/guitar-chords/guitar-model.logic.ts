@@ -1,4 +1,4 @@
-import { Box3, Mesh, Object3D, Vector3 } from "three";
+import { Box3, Object3D, Vector3 } from "three";
 
 export const GUITAR_TARGET_HEIGHT = 2.35;
 
@@ -30,26 +30,4 @@ export function guitarOrientation(scene: Object3D): GuitarOrientation {
   const scale = size.y > 0 ? GUITAR_TARGET_HEIGHT / size.y : 1;
 
   return { rotation, scale };
-}
-
-export function enhanceGuitarMaterials(scene: Object3D): void {
-  scene.traverse((object) => {
-    if (!(object instanceof Mesh)) {
-      return;
-    }
-
-    object.castShadow = true;
-    object.receiveShadow = true;
-
-    const materials = Array.isArray(object.material) ? object.material : [object.material];
-    for (const material of materials) {
-      if (!("isMeshStandardMaterial" in material) || !material.isMeshStandardMaterial) {
-        continue;
-      }
-
-      material.roughness = Math.min(material.roughness, 0.72);
-      material.metalness = Math.max(material.metalness, 0.08);
-      material.envMapIntensity = 1.1;
-    }
-  });
 }

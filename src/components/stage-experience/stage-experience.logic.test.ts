@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vite-plus/test";
 
+import type { Texture } from "three";
+
 import {
   getCanvasDpr,
   lerpPhase,
@@ -7,6 +9,7 @@ import {
   planeDimensions,
   sectionPhase,
   shouldRenderStageExperience,
+  textureImageSize,
 } from "./stage-experience.logic";
 
 describe("stage-experience.logic", () => {
@@ -48,5 +51,19 @@ describe("stage-experience.logic", () => {
   it("scales particle counts by viewport", () => {
     expect(particleCountForViewport(320)).toBe(192);
     expect(particleCountForViewport(1024)).toBe(640);
+  });
+
+  it("reads texture dimensions from loaded image metadata", () => {
+    expect(textureImageSize({ image: null } as Texture)).toEqual({ width: 1, height: 1 });
+    expect(
+      textureImageSize({
+        image: { naturalWidth: 3377, naturalHeight: 6002 },
+      } as Texture),
+    ).toEqual({ width: 3377, height: 6002 });
+    expect(
+      textureImageSize({
+        image: { width: 800, height: 600 },
+      } as Texture),
+    ).toEqual({ width: 800, height: 600 });
   });
 });

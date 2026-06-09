@@ -1,11 +1,19 @@
 {
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
   "ignorePatterns": ["dist/**", "src/routeTree.gen.ts", "scripts/**"],
-  "entry": ["src/index.{ts,tsx,js,jsx}", "src/main.{ts,tsx,js,jsx}", "src/test/setup.ts"],
+  "entry": [
+    "src/index.{ts,tsx,js,jsx}",
+    "src/main.{ts,tsx,js,jsx}",
+    "src/test/setup.ts"
+  ],
   "duplicates": {
     "minOccurrences": 3
   },
-  "ignoreDependencies": ["tailwind-merge"],
+  "ignoreDependencies": [
+    "tailwind-merge",
+    "@imgly/background-removal-node",
+    "fbx2gltf"
+  ],
   "rules": {
     "unused-dependencies": "warn",
     "unused-exports": "warn"

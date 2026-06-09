@@ -5,5 +5,3 @@ export function GuitarChordsExperience() {
   const props = useGuitarChords();
   return <GuitarChordsView {...props} />;
 }
-
-export { useGuitarChords } from "./use-guitar-chords";

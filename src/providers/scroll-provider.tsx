@@ -16,7 +16,9 @@ import { gsap, ScrollTrigger } from "../lib/motion";
 const LenisContext = createContext<LenisInstance | null>(null);
 
 function connectLenisScrollTrigger(lenis: LenisInstance): void {
-  lenis.on("scroll", ScrollTrigger.update);
+  lenis.on("scroll", () => {
+    ScrollTrigger.update();
+  });
 
   ScrollTrigger.scrollerProxy(document.documentElement, {
     scrollTop(value) {

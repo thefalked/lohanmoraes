@@ -3,7 +3,7 @@ import { guitarChapters, guitarPhotoAsset, guitarSectionLabels } from "./guitar-
 
 export const GUITAR_CHAPTER_COUNT = guitarChapters.length;
 export const GUITAR_VH_PER_CHAPTER = 115;
-export const GUITAR_PIN_SCROLL_VH = GUITAR_CHAPTER_COUNT * GUITAR_VH_PER_CHAPTER;
+const GUITAR_PIN_SCROLL_VH = GUITAR_CHAPTER_COUNT * GUITAR_VH_PER_CHAPTER;
 
 export type CameraTarget = {
   position: { x: number; y: number; z: number };
@@ -11,7 +11,7 @@ export type CameraTarget = {
   fov: number;
 };
 
-export function clamp01(value: number): number {
+function clamp01(value: number): number {
   return Math.min(1, Math.max(0, value));
 }
 
@@ -264,7 +264,7 @@ export type MusicPointerField = {
   active: number;
 };
 
-export function scatterMusicParticles(count: number): ScatteredMusicParticle[] {
+function scatterMusicParticles(count: number): ScatteredMusicParticle[] {
   const symbols = ["♪", "♫", "♬", "♩"] as const;
   let seed = 9137;
 
