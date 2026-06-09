@@ -6,6 +6,7 @@ export const contactSectionContent = {
   intro: (brand: string) =>
     `Orçamentos de shows, aulas e produção: entre em contato com a ${brand} pelos canais abaixo.`,
   whatsappLabel: "WhatsApp",
+  instagramLabel: "Instagram",
 } as const;
 
 export const contactSectionBrand = site.brand;

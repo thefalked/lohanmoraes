@@ -38,6 +38,14 @@ export function SiteFooterView() {
           >
             WhatsApp
           </a>
+          <a
+            href={contact.instagramHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link()}
+          >
+            Instagram
+          </a>
         </div>
       </div>
     </footer>

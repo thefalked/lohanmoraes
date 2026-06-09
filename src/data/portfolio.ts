@@ -123,8 +123,9 @@ export const teaching = {
 export const contact = {
   phone: "(67) 99631-4355",
   phoneHref: "tel:+5567996314355",
-  email: "LMart.cantores@gmail.com",
-  emailHref: "mailto:LMart.cantores@gmail.com",
+  email: "contato@lohanmoraes.com",
+  emailHref: "mailto:contato@lohanmoraes.com",
+  instagramHref: "https://www.instagram.com/lohanmoraescantor",
   whatsappMessage: "Olá! Gostaria de solicitar um orçamento de show com o Lohan Moraes.",
   notes: [
     "Orçamentos e contratação de shows pelo contato deste site",

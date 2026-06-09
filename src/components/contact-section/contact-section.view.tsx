@@ -72,6 +72,14 @@ export function ContactSectionView({
           <a href={contact.emailHref} className={styles.secondary()}>
             {contact.email}
           </a>
+          <a
+            href={contact.instagramHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.secondary()}
+          >
+            {content.instagramLabel}
+          </a>
         </div>
       </div>
     </section>
