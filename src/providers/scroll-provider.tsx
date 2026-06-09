@@ -1,9 +1,43 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
-import { createLenis, prefersReducedMotion, type LenisInstance } from "../lib/lenis";
+import {
+  createLenis,
+  prefersReducedMotion,
+  type LenisInstance,
+} from "../lib/lenis";
 import { gsap, ScrollTrigger } from "../lib/motion";
 
 const LenisContext = createContext<LenisInstance | null>(null);
+
+function connectLenisScrollTrigger(lenis: LenisInstance): void {
+  lenis.on("scroll", ScrollTrigger.update);
+
+  ScrollTrigger.scrollerProxy(document.documentElement, {
+    scrollTop(value) {
+      if (arguments.length && value !== undefined) {
+        lenis.scrollTo(value, { immediate: true });
+      }
+      return lenis.scroll;
+    },
+    getBoundingClientRect() {
+      return {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    },
+  });
+
+  ScrollTrigger.defaults({ scroller: document.documentElement });
+  ScrollTrigger.refresh();
+}
 
 export function useLenis(): LenisInstance | null {
   return useContext(LenisContext);
@@ -23,10 +57,7 @@ export function ScrollProvider({ children }: ScrollProviderProps) {
 
     const instance = createLenis();
     setLenis(instance);
-
-    instance.on("scroll", () => {
-      ScrollTrigger.update();
-    });
+    connectLenisScrollTrigger(instance);
 
     const tick = (time: number) => {
       instance.raf(time * 1000);
@@ -46,5 +77,7 @@ export function ScrollProvider({ children }: ScrollProviderProps) {
     };
   }, []);
 
-  return <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>;
+  return (
+    <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>
+  );
 }
