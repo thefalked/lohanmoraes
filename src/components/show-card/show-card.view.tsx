@@ -7,9 +7,14 @@ import { showCardContent } from "./show-card.content";
 const showCard = tv({
   slots: {
     root: [
-      "flex min-w-[min(100%,20rem)] flex-col gap-4",
-      "rounded-stage border border-border bg-surface-elevated p-6",
-      "shadow-stage-card lg:min-w-[18rem]",
+      "flex min-w-[min(100%,20rem)] snap-start flex-col gap-4",
+      "rounded-stage border border-border bg-surface-elevated/75 p-6 backdrop-blur-md",
+      "shadow-stage-card transition-transform duration-300 lg:min-w-[18rem]",
+      "lg:hover:-translate-y-1.5",
+    ],
+    badge: [
+      "w-fit rounded-full bg-accent px-3 py-1 font-display text-body-sm",
+      "font-semibold uppercase tracking-wide text-surface",
     ],
     title: "font-display text-display-md font-semibold uppercase text-text-bright",
     duration: "text-body-sm font-medium text-accent",
@@ -23,17 +28,29 @@ const showCard = tv({
       "hover:bg-accent-muted",
     ],
   },
+  variants: {
+    featured: {
+      true: {
+        root: [
+          "border-accent/40",
+          "shadow-[0_0_0_1px_rgb(224_34_183/0.3),0_0_48px_rgb(224_34_183/0.18)]",
+        ],
+      },
+    },
+  },
 });
 
 export type ShowCardViewProps = {
   show: ShowPackage;
+  featured?: boolean;
 };
 
-export function ShowCardView({ show }: ShowCardViewProps) {
-  const styles = showCard();
+export function ShowCardView({ show, featured = false }: ShowCardViewProps) {
+  const styles = showCard({ featured });
 
   return (
     <article data-reveal className={styles.root()}>
+      {featured && <span className={styles.badge()}>{showCardContent.featuredLabel}</span>}
       <h3 className={styles.title()}>{show.title}</h3>
       <p className={styles.duration()}>{show.duration}</p>
       <ul className={styles.list()}>

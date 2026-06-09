@@ -5,14 +5,22 @@ import type { useAboutSection } from "./use-about-section";
 
 const aboutSection = tv({
   slots: {
-    root: "scroll-mt-20 px-5 py-24 lg:px-10 lg:py-32",
+    root: "relative scroll-mt-20 px-5 py-24 lg:px-10 lg:py-32",
     inner: "mx-auto grid max-w-content gap-12 lg:grid-cols-2 lg:gap-16",
-    copy: "flex flex-col gap-6",
-    body: "text-body-lg text-text-muted",
+    copy: "stage-panel flex flex-col gap-6 p-7 lg:p-10",
+    body: "text-body-lg text-text",
     gallery: "grid grid-cols-2 gap-4",
-    photoMain: "col-span-2 overflow-hidden rounded-stage",
-    photo: "overflow-hidden rounded-stage-sm aspect-4/5 object-cover",
+    photoMain: [
+      "col-span-2 overflow-hidden rounded-stage border border-border shadow-stage-card",
+      "rotate-[-1deg] transition-transform duration-500 hover:rotate-0",
+    ],
+    photo: [
+      "overflow-hidden rounded-stage-sm border border-border aspect-4/5 object-cover",
+      "transition-transform duration-500 odd:rotate-[1.2deg] even:rotate-[-1.2deg] hover:rotate-0",
+    ],
     img: "h-full w-full object-cover",
+    // oversized + recentered so the parallax travel never exposes the container edges
+    imgParallax: "h-full w-full scale-118 object-cover",
   },
 });
 
@@ -49,7 +57,7 @@ export function AboutSectionView({
                 ref={parallaxRef}
                 src={mainPhoto.src}
                 alt={mainPhoto.alt}
-                className={styles.img()}
+                className={styles.imgParallax()}
                 loading="lazy"
               />
             </div>

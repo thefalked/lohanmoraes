@@ -1,4 +1,4 @@
-import { site } from "../../data/portfolio";
+import { contact, site, whatsappUrl } from "../../data/portfolio";
 
 export const heroSectionContent = {
   ariaLabel: "Início",
@@ -6,7 +6,11 @@ export const heroSectionContent = {
   imageSrc: site.heroImage,
   imageWidth: 1920,
   imageHeight: 1080,
-  scrollHint: "Role para explorar",
-  taglineSuffix: (brand: string) =>
-    `${site.tagline}. Shows para eventos e aulas de instrumentos com a equipe ${brand}.`,
+  scrollHint: "Role para entrar no show",
+  ctaPrimaryLabel: "Pedir orçamento",
+  ctaSecondaryLabel: "Ver formatos",
+  ctaSecondaryHref: "#shows",
+  whatsappHref: whatsappUrl(contact.whatsappMessage),
+  tagline:
+    "Do acústico intimista à banda completa com efeitos de palco. Shows para eventos e aulas de instrumentos.",
 } as const;

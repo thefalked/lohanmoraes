@@ -7,15 +7,15 @@ import type { useShowsSection } from "./use-shows-section";
 const showsSection = tv({
   slots: {
     root: [
-      "relative scroll-mt-20 border-t border-border bg-surface-elevated/50",
+      "relative scroll-mt-20 border-t border-border bg-surface/35",
       "px-5 py-24 lg:px-10 lg:py-32",
     ],
     inner: "mx-auto max-w-content",
     intro: "mb-12 max-w-2xl",
-    sub: "mt-4 text-body-lg text-text-muted",
+    sub: "mt-4 text-body-lg text-text",
     track: [
-      "flex gap-6 overflow-x-auto pb-4 stage-scrollbar",
-      "lg:grid lg:grid-cols-2 lg:overflow-visible lg:pb-0",
+      "flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 stage-scrollbar",
+      "lg:grid lg:grid-cols-2 lg:snap-none lg:overflow-visible lg:pb-0",
       "xl:grid-cols-3",
     ],
     stickyLabel: [
@@ -48,7 +48,7 @@ export function ShowsSectionView({ sectionRef, shows, content }: ShowsSectionVie
         </div>
         <div className={styles.track()}>
           {shows.map((show) => (
-            <ShowCard key={show.id} show={show} />
+            <ShowCard key={show.id} show={show} featured={show.id === content.featuredId} />
           ))}
         </div>
       </div>

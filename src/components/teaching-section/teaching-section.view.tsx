@@ -5,23 +5,23 @@ import type { useTeachingSection } from "./use-teaching-section";
 
 const teachingSection = tv({
   slots: {
-    root: "scroll-mt-20 px-5 py-24 lg:px-10 lg:py-32",
-    inner: "mx-auto max-w-content",
-    sub: "mt-4 max-w-2xl text-body-lg text-text-muted",
+    root: "relative scroll-mt-20 px-5 py-24 lg:px-10 lg:py-32",
+    inner: "stage-panel mx-auto max-w-content p-7 lg:p-12",
+    sub: "mt-4 max-w-2xl text-body-lg text-text",
     lessonsLabel: [
       "mt-10 font-display text-body-sm font-medium uppercase tracking-[0.2em]",
       "text-accent",
     ],
     chips: "mt-4 flex flex-wrap gap-3",
     chip: [
-      "rounded-full border border-border px-5 py-2.5",
+      "rounded-full border border-border bg-surface/50 px-5 py-2.5",
       "font-display text-body-sm font-medium uppercase tracking-wide text-text-bright",
       "transition-colors hover:border-accent hover:bg-accent-soft",
     ],
     productionBlock: "mt-16 border-t border-border pt-12",
     productionTitle: ["font-display text-display-md font-semibold uppercase text-text-bright"],
     productionList: "mt-6 flex flex-col gap-4",
-    productionItem: "text-body-lg text-text-muted",
+    productionItem: "text-body-lg text-text",
   },
 });
 

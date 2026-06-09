@@ -38,10 +38,10 @@ export const navItems: NavItem[] = [
 export const bio = {
   headline: "Música ao vivo com alma e energia de palco",
   paragraphs: [
-    "Lohan Moraes é cantor e instrumentista, com trajetória em apresentações para eventos, festas e encontros que pedem uma experiência musical marcante. Da proposta acústica intimista à banda completa com efeitos de palco, cada formato é pensado para o seu público.",
-    "Além dos shows, Lohan dá aulas de violão, viola, bateria, guitarra, teclado e teoria musical, para quem está começando ou quer evoluir com método e prática.",
-    "A LMart também cuida da produção musical de músicas, guias e materiais para DVD, com suporte audiovisual completo para seus projetos.",
-    "Os shows são produzidos pela equipe LMart, com profissionais treinados para garantir som, montagem e uma noite inesquecível para o seu evento.",
+    "Cantor e instrumentista, Lohan Moraes leva para o palco a experiência de quem já fez de tudo em evento: casamento, festa, encontro corporativo. Do acústico intimista à banda completa com efeitos de palco, cada formato é desenhado para o seu público.",
+    "Fora do palco, ensina violão, viola, bateria, guitarra, teclado e teoria musical, do primeiro acorde a quem quer evoluir com método e prática.",
+    "Pela LMart, também assina a produção musical de músicas, guias e materiais para DVD, com suporte audiovisual completo do início ao fim do projeto.",
+    "Cada show sobe ao palco com produção completa: som, montagem e cada detalhe pensados para uma noite inesquecível no seu evento.",
   ],
   photos: [
     {
@@ -109,7 +109,7 @@ export const teaching = {
   headline: "Aprenda com quem vive a música",
   lessonsLabel: "Aulas de",
   description:
-    "Aulas personalizadas do básico ao repertório para shows e eventos. (Não há aulas de canto.)",
+    "Aulas personalizadas, do primeiro acorde ao repertório pronto para o palco. (Não há aulas de canto.)",
   instruments: ["Violão", "Viola", "Bateria", "Guitarra", "Teclado", "Teoria musical"],
   production: {
     headline: "Produção & audiovisual",
