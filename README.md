@@ -6,29 +6,29 @@
 
 This is the home of **Lohan Moraes** and **LMart** (LM Produções Artísticas): shows for events, instrument lessons, and music production. The site is built to match the energy on stage — dark venue lighting, magenta accents, smooth scroll, and a 3D backdrop that moves with you as you explore.
 
-> *"Role para entrar no show."* — that's the vibe. Scroll in.
+> _"Role para entrar no show."_ — that's the vibe. Scroll in.
 
 ---
 
 ## What you'll find
 
-| Section | What's there |
-|---------|--------------|
-| **Hero** | First impression + WhatsApp CTA |
-| **Sobre** | Bio, photos, the full story |
-| **Shows** | Packages from acústico to banda premium |
-| **Ensino** | Violão, viola, bateria, guitarra, teclado, teoria |
+| Section     | What's there                                          |
+| ----------- | ----------------------------------------------------- |
+| **Hero**    | First impression + WhatsApp CTA                       |
+| **Sobre**   | Bio, photos, the full story                           |
+| **Shows**   | Packages from acústico to banda premium               |
+| **Ensino**  | Violão, viola, bateria, guitarra, teclado, teoria     |
 | **Contato** | WhatsApp, Instagram, phone, `contato@lohanmoraes.com` |
 
 ---
 
 ## The fun part (for devs)
 
-Most portfolios are a stack of cards on a white background. This one tries to feel like you're *in* the venue:
+Most portfolios are a stack of cards on a white background. This one tries to feel like you're _in_ the venue:
 
 - **Stage canvas** — React Three Fiber scene with spotlights, particles, and a camera that keyframes to each section as you scroll. Lazy-loaded so content paints first; falls back to a static CSS backdrop when WebGL isn't available or `prefers-reduced-motion` is on.
 - **Grain overlay** — subtle film grain on top. Pure CSS, zero runtime cost.
-- **Marquee strips** — *Shows ao vivo · Aulas de instrumentos · Produção musical · LMart* scrolling between sections.
+- **Marquee strips** — _Shows ao vivo · Aulas de instrumentos · Produção musical · LMart_ scrolling between sections.
 - **Motion** — Lenis smooth scroll + GSAP ScrollTrigger for reveals and section transitions.
 
 ---
@@ -54,12 +54,12 @@ Open the dev server and scroll — the stage canvas is best experienced in motio
 
 Everything content-related lives in one place:
 
-| What | Where |
-|------|-------|
-| Copy, shows, contact info | [`src/data/portfolio.ts`](src/data/portfolio.ts) |
-| Colors, fonts, stage tokens | [`src/index.css`](src/index.css) |
-| Photos | [`public/photos/`](public/photos/) |
-| Favicon & OG image | `bun run assets:brand` |
+| What                        | Where                                            |
+| --------------------------- | ------------------------------------------------ |
+| Copy, shows, contact info   | [`src/data/portfolio.ts`](src/data/portfolio.ts) |
+| Colors, fonts, stage tokens | [`src/index.css`](src/index.css)                 |
+| Photos                      | [`public/photos/`](public/photos/)               |
+| Favicon & OG image          | `bun run assets:brand`                           |
 
 Accent color `#E022B7` is pulled from the stage photography — keep that in mind when tweaking the palette.
 
@@ -115,4 +115,4 @@ docker build -t lohan-moraes-portfolio .   # includes asset generation + build
 
 ---
 
-*Built with care for someone who lives on stage.*
+_Built with care for someone who lives on stage._
