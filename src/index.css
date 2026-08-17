@@ -95,9 +95,22 @@
 
 @utility stage-backdrop-static {
   background:
-    radial-gradient(ellipse 60% 45% at 25% 0%, rgb(224 34 183 / 0.16), transparent 70%),
-    radial-gradient(ellipse 55% 40% at 75% 5%, rgb(138 43 226 / 0.14), transparent 70%),
-    radial-gradient(ellipse 70% 35% at 50% 100%, rgb(255 138 61 / 0.07), transparent 70%), #08060a;
+    radial-gradient(
+      ellipse 60% 45% at 25% 0%,
+      rgb(224 34 183 / 0.16),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 55% 40% at 75% 5%,
+      rgb(138 43 226 / 0.14),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 70% 35% at 50% 100%,
+      rgb(255 138 61 / 0.07),
+      transparent 70%
+    ),
+    #08060a;
 }
 
 @utility stage-panel {
@@ -119,5 +132,42 @@
   &::-webkit-scrollbar-thumb {
     background: rgb(224 34 183 / 0.45);
     border-radius: 999px;
+  }
+}
+
+@keyframes shimmer-sweep {
+  from {
+    transform: translate(-150%, 150%);
+  }
+  to {
+    transform: translate(150%, -150%);
+  }
+}
+
+@utility shimmer {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 35%,
+      rgb(245 245 245 / 0.22) 50%,
+      transparent 65%
+    );
+    transform: translate(-150%, 150%);
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    animation: shimmer-sweep 1s ease-in-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer:hover::after {
+    animation: none;
   }
 }

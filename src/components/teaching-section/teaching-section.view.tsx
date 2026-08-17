@@ -7,7 +7,7 @@ const teachingSection = tv({
   slots: {
     root: "relative scroll-mt-20 px-5 py-24 lg:px-10 lg:py-32",
     inner: "stage-panel mx-auto max-w-content p-7 lg:p-12",
-    sub: "mt-4 max-w-2xl text-body-lg text-text",
+    sub: "mt-4 text-body-lg text-text",
     lessonsLabel: [
       "mt-10 font-display text-body-sm font-medium uppercase tracking-[0.2em]",
       "text-accent",

@@ -19,10 +19,7 @@ const awardsSection = tv({
     meta: "flex flex-wrap items-center gap-x-3 gap-y-1 text-body-sm uppercase tracking-wide text-text",
     metaDot: "text-accent",
     description: "text-body-lg text-text",
-    figure: [
-      "overflow-hidden rounded-stage border border-border shadow-stage-card",
-      "rotate-[-1deg] transition-transform duration-500 hover:rotate-0",
-    ],
+    figure: "shimmer overflow-hidden rounded-stage border border-border shadow-stage-card",
     img: "h-full w-full object-cover",
   },
 });

@@ -6,6 +6,6 @@ export type MarqueeStripProps = {
 };
 
 export function MarqueeStrip({ items }: MarqueeStripProps) {
-  const props = useMarqueeStrip();
+  const props = useMarqueeStrip(items);
   return <MarqueeStripView {...props} items={items} />;
 }

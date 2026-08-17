@@ -7,9 +7,10 @@ const marqueeStrip = tv({
       "relative overflow-hidden border-y border-border bg-surface/60 py-4",
       "pointer-events-none select-none",
     ],
-    track: "flex w-max items-center gap-8 whitespace-nowrap will-change-transform",
+    track: "flex w-max items-center whitespace-nowrap will-change-transform",
+    seq: "flex items-center",
     item: [
-      "flex items-center gap-8 font-display text-display-md font-bold uppercase",
+      "flex items-center gap-8 pr-8 font-display text-display-md font-bold uppercase",
       "tracking-tight text-text-bright/25",
     ],
     dot: "text-accent/60",
@@ -17,21 +18,29 @@ const marqueeStrip = tv({
 });
 
 export type MarqueeStripViewProps = {
+  rootRef: RefObject<HTMLDivElement | null>;
   trackRef: RefObject<HTMLDivElement | null>;
+  seqRef: RefObject<HTMLDivElement | null>;
+  copies: number;
   items: readonly string[];
 };
 
-export function MarqueeStripView({ trackRef, items }: MarqueeStripViewProps) {
+export function MarqueeStripView({
+  rootRef,
+  trackRef,
+  seqRef,
+  copies,
+  items,
+}: MarqueeStripViewProps) {
   const styles = marqueeStrip();
-  const halves = [0, 1];
 
   return (
-    <div className={styles.root()} aria-hidden="true">
+    <div ref={rootRef} className={styles.root()} aria-hidden="true">
       <div ref={trackRef} className={styles.track()}>
-        {halves.map((half) => (
-          <div key={half} className={styles.item()}>
+        {Array.from({ length: copies }).map((_, copy) => (
+          <div key={copy} ref={copy === 0 ? seqRef : undefined} className={styles.seq()}>
             {items.map((item) => (
-              <span key={`${half}-${item}`} className="flex items-center gap-8">
+              <span key={`${copy}-${item}`} className={styles.item()}>
                 {item}
                 <span className={styles.dot()}>✦</span>
               </span>
