@@ -12,6 +12,17 @@ export type NavItem = {
   href: string;
 };
 
+export type Award = {
+  id: string;
+  place: string;
+  category: string;
+  event: string;
+  location: string;
+  year: string;
+  description: string;
+  photo: { src: string; alt: string };
+};
+
 const WHATSAPP_NUMBER = "5567996314355";
 
 export function whatsappUrl(message: string): string {
@@ -30,9 +41,27 @@ export const site = {
 
 export const navItems: NavItem[] = [
   { id: "sobre", label: "Sobre", href: "#sobre" },
+  { id: "premios", label: "Prêmios", href: "#premios" },
   { id: "shows", label: "Shows", href: "#shows" },
   { id: "ensino", label: "Ensino", href: "#ensino" },
   { id: "contato", label: "Contato", href: "#contato" },
+];
+
+export const awards: Award[] = [
+  {
+    id: "canta-nova-2026",
+    place: "1º lugar",
+    category: "Sertanejo",
+    event: "Canta Nova - Festival da Canção",
+    location: "Nova Andradina/MS",
+    year: "2026",
+    description:
+      "Após 12 anos, o Canta Nova voltou ao calendário cultural de Nova Andradina e Lohan conquistou o 1º lugar na categoria Sertanejo. Realizado pela Prefeitura Municipal, por meio da SEMEC e da FUNAC, em parceria com a Associação Rock do Vale, o festival reuniu talentos locais em duas noites de apresentações.",
+    photo: {
+      src: "/photos/lohan-canta-nova.jpeg",
+      alt: "Lohan Moraes recebendo o 1º lugar na categoria Sertanejo no Canta Nova 2026",
+    },
+  },
 ];
 
 export const bio = {

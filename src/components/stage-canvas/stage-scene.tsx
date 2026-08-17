@@ -12,12 +12,13 @@ type CameraKeyframe = {
   target: [number, number, number];
 };
 
-// One keyframe per page section: hero, about, shows, teaching, contact.
+// One keyframe per page section: hero, about, awards, shows, teaching, contact.
 const CAMERA_KEYFRAMES: CameraKeyframe[] = [
   { at: 0.0, position: [0, 1.2, 9], target: [0, 1.5, 0] },
-  { at: 0.25, position: [-3.5, 2.2, 8], target: [1, 1.2, 0] },
-  { at: 0.5, position: [4, 3.2, 9.5], target: [-0.5, 1, 0] },
-  { at: 0.75, position: [-2, 1, 7], target: [0.5, 2, 0] },
+  { at: 0.2, position: [-3.5, 2.2, 8], target: [1, 1.2, 0] },
+  { at: 0.4, position: [2.5, 1.6, 7.5], target: [-0.8, 1.8, 0] },
+  { at: 0.6, position: [4, 3.2, 9.5], target: [-0.5, 1, 0] },
+  { at: 0.8, position: [-2, 1, 7], target: [0.5, 2, 0] },
   { at: 1.0, position: [0, 2.4, 6.5], target: [0, 1.4, 0] },
 ];
 

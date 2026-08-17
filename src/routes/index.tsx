@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { AboutSection } from "../components/about-section";
+import { AwardsSection } from "../components/awards-section";
 import { ContactSection } from "../components/contact-section";
 import { HeroSection } from "../components/hero-section";
 import { MarqueeStrip } from "../components/marquee-strip";
@@ -20,6 +21,7 @@ function HomePage() {
       <HeroSection />
       <MarqueeStrip items={marqueeItems} />
       <AboutSection />
+      <AwardsSection />
       <ShowsSection />
       <TeachingSection />
       <MarqueeStrip items={marqueeItems} />
