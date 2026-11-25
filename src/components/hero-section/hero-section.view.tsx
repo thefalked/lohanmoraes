@@ -31,7 +31,7 @@ const heroSection = tv({
       "inline-flex items-center justify-center rounded-stage-sm px-7 py-3.5",
       "bg-accent font-display text-body-sm font-semibold uppercase tracking-wide",
       "text-surface shadow-stage-card transition-all duration-200",
-      "hover:bg-accent-muted hover:shadow-[0_0_32px_rgb(224_34_183/0.4)]",
+      "hover:bg-accent-muted hover:shadow-[0_0_32px_rgb(217_138_43/0.4)]",
     ],
     ctaSecondary: [
       "inline-flex items-center justify-center rounded-stage-sm border border-border px-7 py-3.5",
@@ -39,7 +39,10 @@ const heroSection = tv({
       "backdrop-blur-sm transition-colors hover:border-accent hover:text-accent",
     ],
     portraitWrap: "relative hidden justify-self-end lg:block",
-    portraitGlow: ["absolute -inset-4 rounded-stage bg-accent/15 blur-2xl", "pointer-events-none"],
+    portraitGlow: [
+      "absolute -inset-4 rounded-stage bg-accent/15 blur-2xl",
+      "pointer-events-none",
+    ],
     portrait: [
       "relative h-[26rem] w-80 rounded-stage object-cover object-top",
       "border border-border shadow-stage-card",
@@ -64,14 +67,24 @@ export function HeroSectionView({
   const styles = heroSection();
 
   return (
-    <section ref={sectionRef} className={styles.root()} aria-label={content.ariaLabel}>
+    <section
+      ref={sectionRef}
+      className={styles.root()}
+      aria-label={content.ariaLabel}
+    >
       <div className={styles.scrim()} />
       <div className={styles.content()}>
         <div data-hero-fade className={styles.copy()}>
           <div className={styles.roles()}>
             {roles.map((role, index) => (
-              <span key={role} data-hero-reveal className="flex items-center gap-4">
-                {index > 0 && <span className={styles.roleDot()} aria-hidden="true" />}
+              <span
+                key={role}
+                data-hero-reveal
+                className="flex items-center gap-4"
+              >
+                {index > 0 && (
+                  <span className={styles.roleDot()} aria-hidden="true" />
+                )}
                 <span className={styles.role()}>{role}</span>
               </span>
             ))}
@@ -91,7 +104,10 @@ export function HeroSectionView({
             >
               {content.ctaPrimaryLabel}
             </a>
-            <a href={content.ctaSecondaryHref} className={styles.ctaSecondary()}>
+            <a
+              href={content.ctaSecondaryHref}
+              className={styles.ctaSecondary()}
+            >
               {content.ctaSecondaryLabel}
             </a>
           </div>

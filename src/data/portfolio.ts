@@ -97,6 +97,17 @@ export const showPackages: ShowPackage[] = [
     instruments: ["Violão", "Sanfona"],
   },
   {
+    id: "banda-premium",
+    title: "Banda completa premium",
+    duration: "2 horas",
+    highlights: [
+      "Abertura com show pirotécnico",
+      "Efeitos especiais de palco",
+      "+ 1 hora de show por DJ",
+    ],
+    instruments: ["Violão", "Sanfona", "Bateria", "Contrabaixo", "VS"],
+  },
+  {
     id: "acustico-som",
     title: "Acústico + locação de som",
     duration: "2 horas",
@@ -120,17 +131,6 @@ export const showPackages: ShowPackage[] = [
       "Esquema de VS",
     ],
     instruments: ["Violão", "Sanfona", "Bateria", "Contrabaixo"],
-  },
-  {
-    id: "banda-premium",
-    title: "Banda completa premium",
-    duration: "2 horas",
-    highlights: [
-      "Abertura com show pirotécnico",
-      "Efeitos especiais de palco",
-      "+ 1 hora de show por DJ",
-    ],
-    instruments: ["Violão", "Sanfona", "Bateria", "Contrabaixo", "VS"],
   },
 ];
 

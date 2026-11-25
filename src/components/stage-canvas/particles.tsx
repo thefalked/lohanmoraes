@@ -43,7 +43,10 @@ export type StageParticlesProps = {
   color?: string;
 };
 
-export function StageParticles({ count, color = "#e8a06a" }: StageParticlesProps) {
+export function StageParticles({
+  count,
+  color = "#d98a2b",
+}: StageParticlesProps) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 
   const geometry = useMemo(() => {

@@ -18,10 +18,10 @@ describe("portfolio", () => {
     expect(showPackages).toHaveLength(5);
     expect(showPackages.map((item) => item.id)).toEqual([
       "acustico",
+      "banda-premium",
       "acustico-som",
       "semiacustico",
       "banda-completa",
-      "banda-premium",
     ]);
   });
 });

@@ -22,7 +22,11 @@ const CAMERA_KEYFRAMES: CameraKeyframe[] = [
   { at: 1.0, position: [0, 2.4, 6.5], target: [0, 1.4, 0] },
 ];
 
-function sampleKeyframes(progress: number, outPos: THREE.Vector3, outTarget: THREE.Vector3): void {
+function sampleKeyframes(
+  progress: number,
+  outPos: THREE.Vector3,
+  outTarget: THREE.Vector3,
+): void {
   const clamped = Math.min(1, Math.max(0, progress));
   let next = CAMERA_KEYFRAMES.findIndex((k) => k.at >= clamped);
   if (next <= 0) {
@@ -75,7 +79,8 @@ export function StageScene({ quality }: StageSceneProps) {
 
   useFrame((state, delta) => {
     const damp = 1 - Math.exp(-3.5 * delta);
-    smoothProgress.current += (getScrollProgress() - smoothProgress.current) * damp;
+    smoothProgress.current +=
+      (getScrollProgress() - smoothProgress.current) * damp;
 
     sampleKeyframes(smoothProgress.current, scratch.position, scratch.target);
 
@@ -94,35 +99,54 @@ export function StageScene({ quality }: StageSceneProps) {
 
   return (
     <>
-      <fog attach="fog" args={["#08060a", 8, 24]} />
+      <fog attach="fog" args={["#1e1918", 8, 24]} />
       <ambientLight intensity={0.12} />
 
       {/* stage floor */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
         <planeGeometry args={[60, 40]} />
-        <meshStandardMaterial color="#0c0a10" roughness={0.35} metalness={0.6} />
+        <meshStandardMaterial
+          color="#181412"
+          roughness={0.35}
+          metalness={0.6}
+        />
       </mesh>
 
       {/* back wall to catch the light wash */}
       <mesh position={[0, 6, -10]}>
         <planeGeometry args={[60, 30]} />
-        <meshStandardMaterial color="#070509" roughness={0.9} metalness={0} />
+        <meshStandardMaterial color="#151210" roughness={0.9} metalness={0} />
       </mesh>
 
-      <SpotlightCone position={[-4.5, 6, -3]} color="#e022b7" swayOffset={0} intensity={0.3} />
-      <SpotlightCone position={[0, 7, -4.5]} color="#8a2be2" swayOffset={2.1} intensity={0.26} />
-      <SpotlightCone position={[4.5, 6, -3]} color="#ff8a3d" swayOffset={4.2} intensity={0.22} />
+      <SpotlightCone
+        position={[-4.5, 6, -3]}
+        color="#d98a2b"
+        swayOffset={0}
+        intensity={0.3}
+      />
+      <SpotlightCone
+        position={[0, 7, -4.5]}
+        color="#b5653b"
+        swayOffset={2.1}
+        intensity={0.26}
+      />
+      <SpotlightCone
+        position={[4.5, 6, -3]}
+        color="#b86b6b"
+        swayOffset={4.2}
+        intensity={0.22}
+      />
       {!quality.isMobile && (
         <>
           <SpotlightCone
             position={[-8, 5.5, -6]}
-            color="#c45ab0"
+            color="#263248"
             swayOffset={1.3}
             intensity={0.16}
           />
           <SpotlightCone
             position={[8, 5.5, -6]}
-            color="#5a4ae0"
+            color="#d98a2b"
             swayOffset={3.4}
             intensity={0.16}
           />
