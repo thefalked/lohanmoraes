@@ -9,6 +9,11 @@ export function createLenis(): Lenis {
     orientation: "vertical",
     smoothWheel: true,
     touchMultiplier: 1.5,
+    allowNestedScroll: true,
+    prevent: (node) =>
+      node.closest(
+        "[data-slot='select-content'], [data-slot='dialog-content'], [data-slot='drawer-content']",
+      ) != null,
   });
 }
 

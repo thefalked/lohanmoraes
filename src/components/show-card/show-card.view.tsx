@@ -7,10 +7,10 @@ import { showCardContent } from "./show-card.content";
 const showCard = tv({
   slots: {
     root: [
-      "flex min-w-[min(100%,20rem)] snap-start flex-col gap-4",
+      "flex w-full flex-col gap-4",
       "rounded-stage border border-border bg-surface-elevated/75 p-6 backdrop-blur-md",
-      "shadow-stage-card transition-transform duration-300 lg:min-w-[18rem]",
-      "lg:hover:-translate-y-1.5",
+      "shadow-stage-card transition-transform duration-300",
+      "lg:w-[calc((100%-3rem)/3)] lg:shrink-0 lg:hover:-translate-y-1.5",
     ],
     badge: [
       "w-fit rounded-full bg-accent px-3 py-1 font-display text-body-sm",

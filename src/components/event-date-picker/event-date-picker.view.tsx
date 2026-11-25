@@ -54,7 +54,7 @@ export function EventDatePickerView({
           selected={selected}
           onSelect={onSelect}
           locale={locale}
-          captionLayout="dropdown"
+          captionLayout="dropdown-months"
           startMonth={startMonth}
           endMonth={endMonth}
           disabled={{ before: disabledBefore }}

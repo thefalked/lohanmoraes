@@ -1,6 +1,6 @@
 import { tv } from "tailwind-variants";
 
-import { contact, site } from "../../data/portfolio";
+import { contact, site, videos } from "../../data/portfolio";
 import { useBooking } from "../../providers/booking-provider";
 
 const siteFooter = tv({
@@ -43,6 +43,14 @@ export function SiteFooterView() {
             className={styles.link()}
           >
             Instagram
+          </a>
+          <a
+            href={videos.channelHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link()}
+          >
+            YouTube
           </a>
         </div>
       </div>

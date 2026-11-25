@@ -48,7 +48,7 @@
 
 @layer base {
   html {
-    @apply scroll-smooth;
+    @apply scroll-smooth stage-scrollbar;
     color-scheme: dark;
   }
 

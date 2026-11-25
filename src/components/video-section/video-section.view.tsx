@@ -1,7 +1,23 @@
+import type { SyntheticEvent } from "react";
 import { tv } from "tailwind-variants";
 
 import { SplitHeading } from "../split-heading";
 import type { useVideoSection } from "./use-video-section";
+
+function youtubeThumb(id: string, quality: "maxresdefault" | "sddefault" | "hqdefault") {
+  return `https://i.ytimg.com/vi/${id}/${quality}.jpg`;
+}
+
+function fallbackPoster(event: SyntheticEvent<HTMLImageElement>, youtubeId: string) {
+  const img = event.currentTarget;
+  if (img.src.includes("maxresdefault")) {
+    img.src = youtubeThumb(youtubeId, "sddefault");
+    return;
+  }
+  if (img.src.includes("sddefault")) {
+    img.src = youtubeThumb(youtubeId, "hqdefault");
+  }
+}
 
 const videoSection = tv({
   slots: {
@@ -33,10 +49,6 @@ const videoSection = tv({
     thumbActive: "border-accent shadow-[0_0_0_1px_rgb(224_34_183/0.35)]",
     thumbImg:
       "aspect-video w-full object-cover opacity-80 transition-opacity group-hover:opacity-100",
-    thumbLabel: [
-      "absolute inset-x-0 bottom-0 bg-linear-to-t from-surface/90 to-transparent px-2 pb-2 pt-6",
-      "font-display text-[0.65rem] uppercase tracking-wide text-text-bright",
-    ],
     channel: "mt-6 inline-flex font-display text-body-sm uppercase tracking-widest text-accent",
   },
 });
@@ -54,7 +66,7 @@ export function VideoSectionView({
   startPlaying,
 }: VideoSectionViewProps) {
   const styles = videoSection();
-  const posterSrc = `https://i.ytimg.com/vi/${active.youtubeId}/hqdefault.jpg`;
+  const posterSrc = youtubeThumb(active.youtubeId, "maxresdefault");
   const embedSrc = `https://www.youtube-nocookie.com/embed/${active.youtubeId}?autoplay=1&rel=0`;
 
   return (
@@ -90,7 +102,19 @@ export function VideoSectionView({
               onClick={startPlaying}
               aria-label={content.playLabel}
             >
-              <img src={posterSrc} alt="" className={styles.posterImg()} loading="lazy" />
+              <img
+                src={posterSrc}
+                alt=""
+                className={styles.posterImg()}
+                loading="lazy"
+                decoding="async"
+                onError={(event) => fallbackPoster(event, active.youtubeId)}
+                onLoad={(event) => {
+                  if (event.currentTarget.naturalWidth < 320) {
+                    fallbackPoster(event, active.youtubeId);
+                  }
+                }}
+              />
               <span className={styles.playBtn()}>{content.playLabel}</span>
             </button>
           )}
@@ -107,12 +131,15 @@ export function VideoSectionView({
               onClick={() => selectVideo(item.youtubeId)}
             >
               <img
-                src={`https://i.ytimg.com/vi/${item.youtubeId}/mqdefault.jpg`}
+                src={youtubeThumb(item.youtubeId, "sddefault")}
                 alt={item.title}
                 className={styles.thumbImg()}
                 loading="lazy"
+                decoding="async"
+                onError={(event) => {
+                  event.currentTarget.src = youtubeThumb(item.youtubeId, "hqdefault");
+                }}
               />
-              <span className={styles.thumbLabel()}>{item.title}</span>
             </button>
           ))}
         </div>

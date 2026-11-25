@@ -13,11 +13,7 @@ const showsSection = tv({
     inner: "mx-auto max-w-content",
     intro: "mb-12 max-w-2xl",
     sub: "mt-4 text-body-lg text-text",
-    track: [
-      "flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 stage-scrollbar",
-      "lg:grid lg:grid-cols-2 lg:snap-none lg:overflow-visible lg:pb-0",
-      "xl:grid-cols-3",
-    ],
+    track: "flex flex-col gap-6 lg:flex-row lg:flex-wrap lg:justify-center",
     stickyLabel: [
       "pointer-events-none absolute right-5 top-1/2 hidden -translate-y-1/2",
       "font-display text-[clamp(4rem,12vw,10rem)] font-bold uppercase leading-none",

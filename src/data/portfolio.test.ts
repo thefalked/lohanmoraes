@@ -29,25 +29,25 @@ describe("portfolio", () => {
 
   it("bookingMessage includes package and date", () => {
     const message = bookingMessage({
-      packageTitle: "Banda completa premium",
+      packageTitle: "Banda premium",
       eventDate: "2027-03-15",
     });
-    expect(message).toContain("Pacote: Banda completa premium");
-    expect(message).toContain("Data do evento: 15/03/2027");
+    expect(message).toContain("Pacote: Banda premium.");
+    expect(message).toContain("Data do evento: 15/03/2027.");
   });
 
   it("bookingMessage marks unknown package", () => {
     const message = bookingMessage({ eventDate: "2027-03-15" });
-    expect(message).toContain("Pacote: ainda não sei");
+    expect(message).toContain("Pacote: ainda não sei.");
   });
 
   it("bookingWhatsAppUrl encodes booking fields", () => {
     const url = bookingWhatsAppUrl({
-      packageTitle: "Acústico",
+      packageTitle: "Acústico intimista",
       eventDate: "2027-03-15",
     });
-    expect(url).toContain(encodeURIComponent("Pacote: Acústico"));
-    expect(url).toContain(encodeURIComponent("15/03/2027"));
+    expect(url).toContain(encodeURIComponent("Pacote: Acústico intimista."));
+    expect(url).toContain(encodeURIComponent("15/03/2027."));
   });
 
   it("defines five show packages in hire ladder order", () => {
@@ -64,7 +64,7 @@ describe("portfolio", () => {
 
   it("defines videos and proof credits", () => {
     expect(videos.items.length).toBeGreaterThanOrEqual(5);
-    expect(videos.featuredId).toBe("modao-ao-vivo");
+    expect(videos.featuredId).toBe("video-3");
     expect(proofCredits.length).toBeGreaterThanOrEqual(2);
   });
 });

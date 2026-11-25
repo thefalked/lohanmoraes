@@ -1,7 +1,6 @@
 export const bookingSheetContent = {
   title: "Contratar show",
-  description:
-    "Escolha o pacote e a data do evento. Em seguida abrimos o WhatsApp com tudo preenchido.",
+  description: "Sem compromisso. Abrimos o WhatsApp com o pacote e a data.",
   packageLabel: "Pacote",
   packageUnknown: "Ainda não sei",
   submitLabel: "Continuar no WhatsApp",

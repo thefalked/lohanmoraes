@@ -48,9 +48,13 @@ const bookingSheet = tv({
       "font-body text-body text-text-bright",
       "focus-visible:border-accent focus-visible:ring-accent/40",
     ],
-    content: "z-[70] rounded-stage-sm border border-border bg-surface-elevated text-text-bright",
+    content: [
+      "z-[70] rounded-stage-sm border border-border bg-surface-elevated text-text-bright",
+      "stage-scrollbar",
+    ],
     item: [
-      "rounded-stage-sm py-2.5 pl-3 pr-8 text-body text-text focus:bg-accent-soft focus:text-text-bright",
+      "rounded-stage-sm py-3 pl-3.5 pr-8 text-body text-text",
+      "data-highlighted:bg-accent data-highlighted:text-white focus:bg-accent focus:text-white",
     ],
     submit: [
       "inline-flex w-full items-center justify-center rounded-stage-sm px-6 py-3.5",
@@ -88,6 +92,10 @@ function BookingForm({
 > & { showSubmit: boolean }) {
   const styles = bookingSheet();
   const selectValue = selectedPackageId || UNKNOWN_PACKAGE;
+  const packageItems = [
+    { value: UNKNOWN_PACKAGE, label: content.packageUnknown },
+    ...packages.map((item) => ({ value: item.id, label: item.title })),
+  ];
 
   return (
     <form id="booking-sheet-form" className={styles.form()} onSubmit={onSubmit}>
@@ -97,6 +105,7 @@ function BookingForm({
         </span>
         <Select
           value={selectValue}
+          items={packageItems}
           onValueChange={(next) => {
             if (next == null) {
               return;
@@ -113,12 +122,9 @@ function BookingForm({
           </SelectTrigger>
           <SelectContent className={styles.content()} alignItemWithTrigger={false} align="start">
             <SelectGroup>
-              <SelectItem value={UNKNOWN_PACKAGE} className={styles.item()}>
-                {content.packageUnknown}
-              </SelectItem>
-              {packages.map((item) => (
-                <SelectItem key={item.id} value={item.id} className={styles.item()}>
-                  {item.title}
+              {packageItems.map((item) => (
+                <SelectItem key={item.value} value={item.value} className={styles.item()}>
+                  {item.label}
                 </SelectItem>
               ))}
             </SelectGroup>

@@ -57,11 +57,11 @@ export type BookingWhatsAppInput = {
 export function bookingMessage({ packageTitle, eventDate }: BookingWhatsAppInput): string {
   const lines = ["Olá! Gostaria de solicitar orçamento de show com o Lohan Moraes."];
   if (packageTitle) {
-    lines.push(`Pacote: ${packageTitle}`);
+    lines.push(`Pacote: ${packageTitle}.`);
   } else {
-    lines.push("Pacote: ainda não sei");
+    lines.push("Pacote: ainda não sei.");
   }
-  lines.push(`Data do evento: ${formatEventDatePtBr(eventDate)}`);
+  lines.push(`Data do evento: ${formatEventDatePtBr(eventDate)}.`);
   return lines.join("\n");
 }
 
@@ -101,9 +101,24 @@ export const proofCredits: ProofCredit[] = [
 ];
 
 export const videos = {
-  featuredId: "modao-ao-vivo",
+  featuredId: "video-3",
   channelHref: "https://www.youtube.com/@lohanmoraes3378",
   items: [
+    {
+      id: "video-3",
+      youtubeId: "UEH3kmobUXU",
+      title: "Show ao vivo",
+    },
+    {
+      id: "video-5",
+      youtubeId: "srBOgTZPFvQ",
+      title: "Palco ao vivo",
+    },
+    {
+      id: "video-4",
+      youtubeId: "fsniUKNxfw0",
+      title: "Performance ao vivo",
+    },
     {
       id: "modao-ao-vivo",
       youtubeId: "-4qCXka-Vxw",
@@ -113,21 +128,6 @@ export const videos = {
       id: "video-2",
       youtubeId: "LJUsBd0gpv0",
       title: "Apresentação ao vivo",
-    },
-    {
-      id: "video-3",
-      youtubeId: "UEH3kmobUXU",
-      title: "Show ao vivo",
-    },
-    {
-      id: "video-4",
-      youtubeId: "fsniUKNxfw0",
-      title: "Performance ao vivo",
-    },
-    {
-      id: "video-5",
-      youtubeId: "srBOgTZPFvQ",
-      title: "Palco ao vivo",
     },
   ] satisfies PortfolioVideo[],
 } as const;
@@ -174,7 +174,7 @@ export const bio = {
 export const showPackages: ShowPackage[] = [
   {
     id: "acustico",
-    title: "Acústico",
+    title: "Acústico intimista",
     duration: "2 horas",
     forWhom: "Eventos intimistas e recepções menores",
     highlights: ["Partes especiais com viola caipira", "Formato intimista para eventos menores"],
@@ -182,7 +182,7 @@ export const showPackages: ShowPackage[] = [
   },
   {
     id: "banda-premium",
-    title: "Banda completa premium",
+    title: "Banda premium",
     duration: "2 horas",
     forWhom: "Grande festa com abertura pirotécnica e DJ",
     highlights: [
@@ -194,7 +194,7 @@ export const showPackages: ShowPackage[] = [
   },
   {
     id: "acustico-som",
-    title: "Acústico + locação de som",
+    title: "Acústico com som",
     duration: "2 horas",
     forWhom: "Até cerca de 90 convidados, com som incluso",
     highlights: ["Partes especiais com viola caipira", "Som e iluminação para até ~90 pessoas"],
@@ -210,7 +210,7 @@ export const showPackages: ShowPackage[] = [
   },
   {
     id: "banda-completa",
-    title: "Banda completa",
+    title: "Banda com efeitos",
     duration: "2 horas",
     forWhom: "Casamentos e festas com efeitos de palco",
     highlights: [
@@ -245,7 +245,7 @@ export const contact = {
   instagramHref: "https://www.instagram.com/lohanmoraescantor",
   whatsappMessage: "Olá! Gostaria de solicitar um orçamento de show com o Lohan Moraes.",
   notes: [
-    "Orçamentos e contratação de shows pelo contato deste site",
-    "Deslocamento informado no orçamento, com base na distância do evento",
+    "Resposta rápida com valores e deslocamento",
+    "Deslocamento calculado pela distância do evento",
   ],
 } as const;
