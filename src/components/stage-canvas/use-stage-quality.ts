@@ -2,7 +2,6 @@ export type StageQuality = {
   isMobile: boolean;
   dprMax: number;
   particleCount: number;
-  bloom: boolean;
   pointerParallax: boolean;
 };
 
@@ -14,8 +13,7 @@ export function getStageQuality(): StageQuality {
   return {
     isMobile,
     dprMax: isMobile ? 1.5 : 2,
-    particleCount: isMobile ? 350 : 1100,
-    bloom: !isMobile,
+    particleCount: isMobile ? 180 : 520,
     pointerParallax: !isMobile,
   };
 }

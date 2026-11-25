@@ -2,8 +2,8 @@ import { useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
+import { LightRibbon } from "./light-ribbons";
 import { StageParticles } from "./particles";
-import { SpotlightCone } from "./spotlights";
 import type { StageQuality } from "./use-stage-quality";
 
 type CameraKeyframe = {
@@ -12,14 +12,13 @@ type CameraKeyframe = {
   target: [number, number, number];
 };
 
-// One keyframe per page section: hero, about, awards, shows, teaching, contact.
 const CAMERA_KEYFRAMES: CameraKeyframe[] = [
-  { at: 0.0, position: [0, 1.2, 9], target: [0, 1.5, 0] },
-  { at: 0.2, position: [-3.5, 2.2, 8], target: [1, 1.2, 0] },
-  { at: 0.4, position: [2.5, 1.6, 7.5], target: [-0.8, 1.8, 0] },
-  { at: 0.6, position: [4, 3.2, 9.5], target: [-0.5, 1, 0] },
-  { at: 0.8, position: [-2, 1, 7], target: [0.5, 2, 0] },
-  { at: 1.0, position: [0, 2.4, 6.5], target: [0, 1.4, 0] },
+  { at: 0.0, position: [0, 0.8, 10], target: [0, 0.6, 0] },
+  { at: 0.2, position: [-2.2, 1.2, 9.2], target: [0.4, 0.5, -1] },
+  { at: 0.4, position: [1.8, 0.9, 8.8], target: [-0.3, 0.7, -0.5] },
+  { at: 0.6, position: [2.6, 1.6, 9.5], target: [0, 0.4, -1] },
+  { at: 0.8, position: [-1.4, 0.7, 8.4], target: [0.2, 0.8, -0.2] },
+  { at: 1.0, position: [0, 1.3, 8], target: [0, 0.55, 0] },
 ];
 
 function sampleKeyframes(progress: number, outPos: THREE.Vector3, outTarget: THREE.Vector3): void {
@@ -35,7 +34,6 @@ function sampleKeyframes(progress: number, outPos: THREE.Vector3, outTarget: THR
   const b = CAMERA_KEYFRAMES[next];
   const span = b.at - a.at;
   const local = span > 0 ? (clamped - a.at) / span : 0;
-  // ease in-out for gentler section-to-section moves
   const t = local * local * (3 - 2 * local);
   outPos.set(
     a.position[0] + (b.position[0] - a.position[0]) * t,
@@ -62,29 +60,31 @@ export type StageSceneProps = {
 export function StageScene({ quality }: StageSceneProps) {
   const { camera } = useThree();
   const smoothProgress = useRef(0);
+  const scrollRef = useRef(0);
   const pointer = useRef({ x: 0, y: 0 });
 
   const scratch = useMemo(
     () => ({
       position: new THREE.Vector3(),
       target: new THREE.Vector3(),
-      lookAt: new THREE.Vector3(0, 1.5, 0),
+      lookAt: new THREE.Vector3(0, 0.6, 0),
     }),
     [],
   );
 
   useFrame((state, delta) => {
-    const damp = 1 - Math.exp(-3.5 * delta);
+    const damp = 1 - Math.exp(-1.8 * delta);
     smoothProgress.current += (getScrollProgress() - smoothProgress.current) * damp;
+    scrollRef.current = smoothProgress.current;
 
     sampleKeyframes(smoothProgress.current, scratch.position, scratch.target);
 
     if (quality.pointerParallax) {
-      const pointerDamp = 1 - Math.exp(-2.5 * delta);
+      const pointerDamp = 1 - Math.exp(-1.4 * delta);
       pointer.current.x += (state.pointer.x - pointer.current.x) * pointerDamp;
       pointer.current.y += (state.pointer.y - pointer.current.y) * pointerDamp;
-      scratch.position.x += pointer.current.x * 0.6;
-      scratch.position.y += pointer.current.y * 0.35;
+      scratch.position.x += pointer.current.x * 0.25;
+      scratch.position.y += pointer.current.y * 0.12;
     }
 
     camera.position.copy(scratch.position);
@@ -94,42 +94,84 @@ export function StageScene({ quality }: StageSceneProps) {
 
   return (
     <>
-      <fog attach="fog" args={["#08060a", 8, 24]} />
+      <fog attach="fog" args={["#07050b", 12, 28]} />
+      <color attach="background" args={["#07050b"]} />
       <ambientLight intensity={0.12} />
 
-      {/* stage floor */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-        <planeGeometry args={[60, 40]} />
-        <meshStandardMaterial color="#0c0a10" roughness={0.35} metalness={0.6} />
-      </mesh>
-
-      {/* back wall to catch the light wash */}
-      <mesh position={[0, 6, -10]}>
-        <planeGeometry args={[60, 30]} />
-        <meshStandardMaterial color="#070509" roughness={0.9} metalness={0} />
-      </mesh>
-
-      <SpotlightCone position={[-4.5, 6, -3]} color="#e022b7" swayOffset={0} intensity={0.3} />
-      <SpotlightCone position={[0, 7, -4.5]} color="#8a2be2" swayOffset={2.1} intensity={0.26} />
-      <SpotlightCone position={[4.5, 6, -3]} color="#ff8a3d" swayOffset={4.2} intensity={0.22} />
+      <LightRibbon
+        color="#e022b7"
+        position={[0, 1.2, -2]}
+        rotation={[0.35, 0.2, -0.15]}
+        phase={0.2}
+        amp={1.35}
+        opacity={0.28}
+        scrollRef={scrollRef}
+      />
+      <LightRibbon
+        color="#8a2be2"
+        position={[-1.5, 0.2, -3.5]}
+        rotation={[0.55, -0.25, 0.1]}
+        width={20}
+        height={2.8}
+        phase={1.7}
+        amp={1.6}
+        opacity={0.2}
+        scrollRef={scrollRef}
+      />
+      <LightRibbon
+        color="#c45ab0"
+        position={[1.8, -0.4, -1.5]}
+        rotation={[0.25, 0.35, 0.2]}
+        width={16}
+        height={2}
+        phase={3.1}
+        amp={1.1}
+        opacity={0.18}
+        scrollRef={scrollRef}
+      />
       {!quality.isMobile && (
         <>
-          <SpotlightCone
-            position={[-8, 5.5, -6]}
-            color="#c45ab0"
-            swayOffset={1.3}
-            intensity={0.16}
-          />
-          <SpotlightCone
-            position={[8, 5.5, -6]}
+          <LightRibbon
             color="#5a4ae0"
-            swayOffset={3.4}
-            intensity={0.16}
+            position={[0, 2.4, -5]}
+            rotation={[0.7, 0.05, -0.05]}
+            width={22}
+            height={3.2}
+            phase={4.4}
+            amp={1.8}
+            opacity={0.12}
+            scrollRef={scrollRef}
+          />
+          <LightRibbon
+            color="#e022b7"
+            position={[-2.5, -1.2, -4]}
+            rotation={[0.4, -0.4, 0.25]}
+            width={14}
+            height={1.6}
+            phase={5.6}
+            amp={0.9}
+            opacity={0.14}
+            scrollRef={scrollRef}
           />
         </>
       )}
 
-      <StageParticles count={quality.particleCount} />
+      <mesh position={[-3.5, 2.2, -6]}>
+        <sphereGeometry args={[0.55, 24, 24]} />
+        <meshBasicMaterial color="#e022b7" transparent opacity={0.18} toneMapped={false} />
+      </mesh>
+      <mesh position={[3.2, 1.4, -5.5]}>
+        <sphereGeometry args={[0.4, 24, 24]} />
+        <meshBasicMaterial color="#8a2be2" transparent opacity={0.16} toneMapped={false} />
+      </mesh>
+      {!quality.isMobile && (
+        <mesh position={[0.5, 3.1, -7]}>
+          <sphereGeometry args={[0.7, 24, 24]} />
+          <meshBasicMaterial color="#c45ab0" transparent opacity={0.1} toneMapped={false} />
+        </mesh>
+      )}
+
+      <StageParticles count={quality.particleCount} color="#d45ec4" />
     </>
   );
 }
