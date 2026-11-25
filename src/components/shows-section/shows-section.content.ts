@@ -4,5 +4,5 @@ export const showsSectionContent = {
   srHeading: "Tipos de show",
   featuredId: "banda-premium",
   intro:
-    "Cinco formatos, uma mesma entrega: energia de palco do começo ao fim. Valores e deslocamento sob consulta, é só chamar no WhatsApp.",
+    "Cinco formatos, da recepção intimista à banda premium com efeitos de palco. Produção inclusa. Valores e deslocamento sob consulta.",
 } as const;

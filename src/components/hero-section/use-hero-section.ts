@@ -2,10 +2,12 @@ import { useEffect, useRef } from "react";
 
 import { site } from "../../data/portfolio";
 import { gsap, isMotionEnabled } from "../../lib/motion";
+import { useBooking } from "../../providers/booking-provider";
 import { heroSectionContent } from "./hero-section.content";
 
 export function useHeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -31,7 +33,6 @@ export function useHeroSection() {
         delay: 0.5,
       });
 
-      // hero content drifts up and fades as the 3D stage takes over
       gsap.to("[data-hero-fade]", {
         yPercent: -12,
         opacity: 0,
@@ -54,5 +55,6 @@ export function useHeroSection() {
     name: site.name,
     tagline: heroSectionContent.tagline,
     content: heroSectionContent,
+    onHireClick: () => openBooking(),
   };
 }

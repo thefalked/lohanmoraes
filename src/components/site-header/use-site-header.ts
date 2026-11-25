@@ -5,10 +5,13 @@ import {
   scrollToTop,
   shouldHandleHashNavigation,
 } from "../../lib/navigation.logic";
+import { useBooking } from "../../providers/booking-provider";
 import { useLenis } from "../../providers/scroll-provider";
+import { siteHeaderContent } from "./site-header.content";
 
 export function useSiteHeader() {
   const lenis = useLenis();
+  const { openBooking } = useBooking();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -37,5 +40,11 @@ export function useSiteHeader() {
     }
   };
 
-  return { scrolled, onHomeClick, onNavClick };
+  return {
+    scrolled,
+    onHomeClick,
+    onNavClick,
+    onHireClick: () => openBooking(),
+    hireLabel: siteHeaderContent.hireLabel,
+  };
 }

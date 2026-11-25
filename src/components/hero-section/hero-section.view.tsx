@@ -20,7 +20,6 @@ const heroSection = tv({
       "font-display text-body-sm font-medium uppercase tracking-[0.25em]",
       "text-accent stage-glow",
     ],
-    roleDot: "h-1 w-1 rounded-full bg-accent/60",
     title: [
       "font-display font-bold uppercase leading-[0.92] text-text-bright",
       "text-[clamp(3.25rem,13vw,8.5rem)] stage-glow-strong",
@@ -31,7 +30,7 @@ const heroSection = tv({
       "inline-flex items-center justify-center rounded-stage-sm px-7 py-3.5",
       "bg-accent font-display text-body-sm font-semibold uppercase tracking-wide",
       "text-surface shadow-stage-card transition-all duration-200",
-      "hover:bg-accent-muted hover:shadow-[0_0_32px_rgb(217_138_43/0.4)]",
+      "hover:bg-accent-muted hover:shadow-[0_0_32px_rgb(224_34_183/0.4)]",
     ],
     ctaSecondary: [
       "inline-flex items-center justify-center rounded-stage-sm border border-border px-7 py-3.5",
@@ -39,10 +38,7 @@ const heroSection = tv({
       "backdrop-blur-sm transition-colors hover:border-accent hover:text-accent",
     ],
     portraitWrap: "relative hidden justify-self-end lg:block",
-    portraitGlow: [
-      "absolute -inset-4 rounded-stage bg-accent/15 blur-2xl",
-      "pointer-events-none",
-    ],
+    portraitGlow: ["absolute -inset-4 rounded-stage bg-accent/15 blur-2xl", "pointer-events-none"],
     portrait: [
       "relative h-[26rem] w-80 rounded-stage object-cover object-top",
       "border border-border shadow-stage-card",
@@ -63,29 +59,19 @@ export function HeroSectionView({
   name,
   tagline,
   content,
+  onHireClick,
 }: HeroSectionViewProps) {
   const styles = heroSection();
 
   return (
-    <section
-      ref={sectionRef}
-      className={styles.root()}
-      aria-label={content.ariaLabel}
-    >
+    <section ref={sectionRef} className={styles.root()} aria-label={content.ariaLabel}>
       <div className={styles.scrim()} />
       <div className={styles.content()}>
         <div data-hero-fade className={styles.copy()}>
           <div className={styles.roles()}>
-            {roles.map((role, index) => (
-              <span
-                key={role}
-                data-hero-reveal
-                className="flex items-center gap-4"
-              >
-                {index > 0 && (
-                  <span className={styles.roleDot()} aria-hidden="true" />
-                )}
-                <span className={styles.role()}>{role}</span>
+            {roles.map((role) => (
+              <span key={role} data-hero-reveal className={styles.role()}>
+                {role}
               </span>
             ))}
           </div>
@@ -96,18 +82,10 @@ export function HeroSectionView({
             {tagline}
           </p>
           <div data-hero-reveal className={styles.actions()}>
-            <a
-              href={content.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.ctaPrimary()}
-            >
+            <button type="button" onClick={onHireClick} className={styles.ctaPrimary()}>
               {content.ctaPrimaryLabel}
-            </a>
-            <a
-              href={content.ctaSecondaryHref}
-              className={styles.ctaSecondary()}
-            >
+            </button>
+            <a href={content.ctaSecondaryHref} className={styles.ctaSecondary()}>
               {content.ctaSecondaryLabel}
             </a>
           </div>
@@ -116,9 +94,6 @@ export function HeroSectionView({
             {content.scrollHint}
           </div>
         </div>
-        {/* fade and intro tweens animate opacity on separate elements;
-            sharing one element makes the scrub tween capture the intro's
-            opacity:0 as its start value, locking the portrait invisible */}
         <div data-hero-fade className={styles.portraitWrap()}>
           <div data-hero-portrait className="relative">
             <div className={styles.portraitGlow()} aria-hidden="true" />

@@ -2,6 +2,7 @@ export type ShowPackage = {
   id: string;
   title: string;
   duration: string;
+  forWhom: string;
   highlights: string[];
   instruments: string[];
 };
@@ -23,16 +24,62 @@ export type Award = {
   photo: { src: string; alt: string };
 };
 
+export type PortfolioVideo = {
+  id: string;
+  youtubeId: string;
+  title: string;
+};
+
+export type ProofCredit = {
+  id: string;
+  label: string;
+};
+
 const WHATSAPP_NUMBER = "5567996314355";
 
 export function whatsappUrl(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
+export function formatEventDatePtBr(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-");
+  if (!year || !month || !day) {
+    return isoDate;
+  }
+  return `${day}/${month}/${year}`;
+}
+
+export type BookingWhatsAppInput = {
+  packageTitle?: string | null;
+  eventDate: string;
+};
+
+export function bookingMessage({ packageTitle, eventDate }: BookingWhatsAppInput): string {
+  const lines = ["Olá! Gostaria de solicitar orçamento de show com o Lohan Moraes."];
+  if (packageTitle) {
+    lines.push(`Pacote: ${packageTitle}`);
+  } else {
+    lines.push("Pacote: ainda não sei");
+  }
+  lines.push(`Data do evento: ${formatEventDatePtBr(eventDate)}`);
+  return lines.join("\n");
+}
+
+export function bookingWhatsAppUrl(input: BookingWhatsAppInput): string {
+  return whatsappUrl(bookingMessage(input));
+}
+
+/** @deprecated Prefer bookingWhatsAppUrl with an event date */
+export function showQuoteUrl(packageTitle: string): string {
+  return whatsappUrl(
+    `Olá! Gostaria de solicitar orçamento para o pacote "${packageTitle}" com o Lohan Moraes.`,
+  );
+}
+
 export const site = {
   name: "Lohan Moraes",
-  tagline: "Cantor & Professor",
-  roles: ["Cantor", "Professor", "LMart"],
+  tagline: "Cantor para eventos",
+  roles: ["Cantor para eventos"],
   heroImage: "/photos/hero-lohan.jpeg",
   logoImage: "/photos/lohan-logo.png",
   brand: "LMart",
@@ -41,11 +88,49 @@ export const site = {
 
 export const navItems: NavItem[] = [
   { id: "sobre", label: "Sobre", href: "#sobre" },
+  { id: "ao-vivo", label: "Ao vivo", href: "#ao-vivo" },
   { id: "premios", label: "Prêmios", href: "#premios" },
   { id: "shows", label: "Shows", href: "#shows" },
   { id: "ensino", label: "Ensino", href: "#ensino" },
   { id: "contato", label: "Contato", href: "#contato" },
 ];
+
+export const proofCredits: ProofCredit[] = [
+  { id: "canta-nova", label: "1º lugar Canta Nova 2026" },
+  { id: "abertura-na", label: "Abertura · 67 anos de Nova Andradina" },
+];
+
+export const videos = {
+  featuredId: "modao-ao-vivo",
+  channelHref: "https://www.youtube.com/@lohanmoraes3378",
+  items: [
+    {
+      id: "modao-ao-vivo",
+      youtubeId: "-4qCXka-Vxw",
+      title: "100% modão ao vivo",
+    },
+    {
+      id: "video-2",
+      youtubeId: "LJUsBd0gpv0",
+      title: "Apresentação ao vivo",
+    },
+    {
+      id: "video-3",
+      youtubeId: "UEH3kmobUXU",
+      title: "Show ao vivo",
+    },
+    {
+      id: "video-4",
+      youtubeId: "fsniUKNxfw0",
+      title: "Performance ao vivo",
+    },
+    {
+      id: "video-5",
+      youtubeId: "srBOgTZPFvQ",
+      title: "Palco ao vivo",
+    },
+  ] satisfies PortfolioVideo[],
+} as const;
 
 export const awards: Award[] = [
   {
@@ -67,10 +152,8 @@ export const awards: Award[] = [
 export const bio = {
   headline: "Música ao vivo com alma e energia de palco",
   paragraphs: [
-    "Cantor e instrumentista, Lohan Moraes leva para o palco a experiência de quem já fez de tudo em evento: casamento, festa, encontro corporativo. Do acústico intimista à banda completa com efeitos de palco, cada formato é desenhado para o seu público.",
-    "Fora do palco, ensina violão, viola, bateria, guitarra, teclado e teoria musical, do primeiro acorde a quem quer evoluir com método e prática.",
-    "Pela LMart, também assina a produção musical de músicas, guias e materiais para DVD, com suporte audiovisual completo do início ao fim do projeto.",
-    "Cada show sobe ao palco com produção completa: som, montagem e cada detalhe pensados para uma noite inesquecível no seu evento.",
+    "Cantor e instrumentista, Lohan Moraes sobe ao palco de casamentos, festas e eventos corporativos com a experiência de quem já entregou do acústico intimista à banda completa com efeitos de palco. Cada formato é desenhado para o seu público, com produção, som e montagem pensados para a noite.",
+    "Fora do palco, também oferece aulas de instrumentos e produção musical pela LMart. O foco deste site é contratar o show certo para o seu evento.",
   ],
   photos: [
     {
@@ -93,6 +176,7 @@ export const showPackages: ShowPackage[] = [
     id: "acustico",
     title: "Acústico",
     duration: "2 horas",
+    forWhom: "Eventos intimistas e recepções menores",
     highlights: ["Partes especiais com viola caipira", "Formato intimista para eventos menores"],
     instruments: ["Violão", "Sanfona"],
   },
@@ -100,6 +184,7 @@ export const showPackages: ShowPackage[] = [
     id: "banda-premium",
     title: "Banda completa premium",
     duration: "2 horas",
+    forWhom: "Grande festa com abertura pirotécnica e DJ",
     highlights: [
       "Abertura com show pirotécnico",
       "Efeitos especiais de palco",
@@ -111,6 +196,7 @@ export const showPackages: ShowPackage[] = [
     id: "acustico-som",
     title: "Acústico + locação de som",
     duration: "2 horas",
+    forWhom: "Até cerca de 90 convidados, com som incluso",
     highlights: ["Partes especiais com viola caipira", "Som e iluminação para até ~90 pessoas"],
     instruments: ["Violão", "Sanfona"],
   },
@@ -118,6 +204,7 @@ export const showPackages: ShowPackage[] = [
     id: "semiacustico",
     title: "Semiacústico",
     duration: "2 horas",
+    forWhom: "Festas que pedem mais energia de palco",
     highlights: ["Partes especiais com viola caipira", "Mais energia de palco"],
     instruments: ["Violão", "Sanfona", "Bateria"],
   },
@@ -125,6 +212,7 @@ export const showPackages: ShowPackage[] = [
     id: "banda-completa",
     title: "Banda completa",
     duration: "2 horas",
+    forWhom: "Casamentos e festas com efeitos de palco",
     highlights: [
       "Partes com piano e viola caipira",
       "Efeitos: fumaça, gerbs, canhão de papel, micro mine",
@@ -158,12 +246,6 @@ export const contact = {
   whatsappMessage: "Olá! Gostaria de solicitar um orçamento de show com o Lohan Moraes.",
   notes: [
     "Orçamentos e contratação de shows pelo contato deste site",
-    "Deslocamento: valor por km, informado no orçamento",
+    "Deslocamento informado no orçamento, com base na distância do evento",
   ],
 } as const;
-
-export function showQuoteUrl(packageTitle: string): string {
-  return whatsappUrl(
-    `Olá! Gostaria de solicitar orçamento para o pacote "${packageTitle}" com o Lohan Moraes.`,
-  );
-}

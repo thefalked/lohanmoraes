@@ -1,16 +1,13 @@
-import { contact, site, whatsappUrl } from "../../data/portfolio";
-
 export const heroSectionContent = {
   ariaLabel: "Início",
   imageAlt: "Lohan Moraes ao vivo no palco",
-  imageSrc: site.heroImage,
+  imageSrc: "/photos/hero-lohan.jpeg",
   imageWidth: 1920,
   imageHeight: 1080,
   scrollHint: "Role para entrar no show",
-  ctaPrimaryLabel: "Pedir orçamento",
-  ctaSecondaryLabel: "Ver formatos",
-  ctaSecondaryHref: "#shows",
-  whatsappHref: whatsappUrl(contact.whatsappMessage),
+  ctaPrimaryLabel: "Contratar show",
+  ctaSecondaryLabel: "Ver ao vivo",
+  ctaSecondaryHref: "#ao-vivo",
   tagline:
-    "Do acústico intimista à banda completa com efeitos de palco. Shows para eventos e aulas de instrumentos.",
+    "Shows para casamentos, festas e eventos corporativos. Do acústico intimista à banda completa com efeitos de palco.",
 } as const;

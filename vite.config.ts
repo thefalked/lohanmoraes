@@ -1,7 +1,12 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import { defineConfig } from "vite-plus";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
+
+const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   staged: {
@@ -39,6 +44,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  resolve: {
+    alias: {
+      "@": path.resolve(rootDir, "./src"),
+    },
+  },
   test: {
     environment: "jsdom",
     setupFiles: ["./src/test/setup.ts"],

@@ -1,10 +1,11 @@
 import { site } from "../../data/portfolio";
 
 export const contactSectionContent = {
-  headingLines: ["Contato", "Vamos conversar sobre seu evento"] as const,
+  headingLines: ["Contato", "Vamos fechar o show do seu evento"] as const,
   srHeading: "Contato",
-  intro: (brand: string) => `Show, aula ou produção? Fale com a ${brand} pelo canal que preferir.`,
-  whatsappLabel: "WhatsApp",
+  intro: (brand: string) =>
+    `Conte a data e o formato. A ${brand} responde com o orçamento do show.`,
+  whatsappLabel: "Contratar pelo WhatsApp",
   instagramLabel: "Instagram",
 } as const;
 

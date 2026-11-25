@@ -1,7 +1,7 @@
 import { tv } from "tailwind-variants";
 
 import type { ShowPackage } from "../../data/portfolio";
-import { showQuoteUrl } from "../../data/portfolio";
+import { useBooking } from "../../providers/booking-provider";
 import { showCardContent } from "./show-card.content";
 
 const showCard = tv({
@@ -16,15 +16,12 @@ const showCard = tv({
       "w-fit rounded-full bg-accent px-3 py-1 font-display text-body-sm",
       "font-semibold uppercase tracking-wide text-surface",
     ],
-    title:
-      "font-display text-display-md font-semibold uppercase text-text-bright",
+    title: "font-display text-display-md font-semibold uppercase text-text-bright",
+    forWhom: "text-body-sm text-text",
     duration: "text-body-sm font-medium text-accent",
     list: "flex flex-col gap-2 text-body-sm text-text-muted",
     instruments: "flex flex-wrap gap-2",
-    tag: [
-      "rounded-full border border-border bg-accent-soft px-3 py-1",
-      "text-body-sm text-text",
-    ],
+    tag: ["rounded-full border border-border bg-accent-soft px-3 py-1", "text-body-sm text-text"],
     cta: [
       "mt-auto inline-flex items-center justify-center rounded-stage-sm",
       "bg-accent px-5 py-3 font-display text-body-sm font-medium uppercase tracking-wide",
@@ -37,7 +34,7 @@ const showCard = tv({
       true: {
         root: [
           "border-accent/40",
-          "shadow-[0_0_0_1px_rgb(217_138_43/0.3),0_0_48px_rgb(217_138_43/0.18)]",
+          "shadow-[0_0_0_1px_rgb(224_34_183/0.3),0_0_48px_rgb(224_34_183/0.18)]",
         ],
       },
     },
@@ -51,13 +48,13 @@ export type ShowCardViewProps = {
 
 export function ShowCardView({ show, featured = false }: ShowCardViewProps) {
   const styles = showCard({ featured });
+  const { openBooking } = useBooking();
 
   return (
     <article data-reveal className={styles.root()}>
-      {featured && (
-        <span className={styles.badge()}>{showCardContent.featuredLabel}</span>
-      )}
+      {featured && <span className={styles.badge()}>{showCardContent.featuredLabel}</span>}
       <h3 className={styles.title()}>{show.title}</h3>
+      <p className={styles.forWhom()}>{show.forWhom}</p>
       <p className={styles.duration()}>{show.duration}</p>
       <ul className={styles.list()}>
         {show.highlights.map((item) => (
@@ -71,14 +68,13 @@ export function ShowCardView({ show, featured = false }: ShowCardViewProps) {
           </span>
         ))}
       </div>
-      <a
-        href={showQuoteUrl(show.title)}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        type="button"
         className={styles.cta()}
+        onClick={() => openBooking({ packageId: show.id })}
       >
         {showCardContent.ctaLabel}
-      </a>
+      </button>
     </article>
   );
 }
