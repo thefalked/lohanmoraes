@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vite-plus/test";
 
 import {
+  formatIsoDateDisplay,
   isoToLocalDate,
   localDateToIso,
   parseIsoDate,
@@ -27,5 +28,11 @@ describe("event-date-picker.logic", () => {
     const date = isoToLocalDate("2027-03-15");
     expect(date).toBeInstanceOf(Date);
     expect(localDateToIso(date!)).toBe("2027-03-15");
+  });
+
+  it("formatIsoDateDisplay uses BR mask and empty label", () => {
+    expect(formatIsoDateDisplay("")).toBe("--/--/----");
+    expect(formatIsoDateDisplay("bad", "--/--/----")).toBe("--/--/----");
+    expect(formatIsoDateDisplay("2027-03-05")).toBe("05/03/2027");
   });
 });

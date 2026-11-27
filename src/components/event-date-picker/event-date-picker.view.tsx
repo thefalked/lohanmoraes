@@ -1,3 +1,4 @@
+import { CalendarIcon } from "lucide-react";
 import { tv } from "tailwind-variants";
 
 import { Calendar } from "../ui/calendar";
@@ -8,15 +9,27 @@ const eventDatePicker = tv({
   slots: {
     root: "flex w-full flex-col gap-3",
     label: "font-display text-body-sm font-medium uppercase tracking-widest text-text-muted",
-    native: [
-      "w-full rounded-stage-sm border border-border bg-surface/60 px-4 py-3",
-      "font-body text-body text-text-bright lg:hidden",
-      "focus-visible:border-accent focus-visible:outline-none",
+    nativeWrap: "relative lg:hidden",
+    trigger: [
+      "flex h-auto w-full min-h-12 items-center justify-between gap-1.5",
+      "rounded-stage-sm border border-border bg-surface/60 px-4 py-3",
+      "font-body text-body text-text-bright",
+      "transition-colors outline-none",
+      "focus-visible:border-accent focus-visible:ring-3 focus-visible:ring-accent/40",
     ],
+    triggerValue: "flex flex-1 text-left",
+    triggerIcon: "pointer-events-none size-4 shrink-0 text-text-muted",
+    native: "pointer-events-none absolute h-px w-px opacity-0",
     calendarWrap: [
       "hidden w-full justify-center rounded-stage-sm border border-border",
       "bg-surface-elevated/90 p-3 shadow-stage-card lg:flex",
     ],
+  },
+  variants: {
+    empty: {
+      true: { triggerValue: "text-text-muted" },
+      false: { triggerValue: "text-text-bright" },
+    },
   },
 });
 
@@ -31,23 +44,40 @@ export function EventDatePickerView({
   startMonth,
   endMonth,
   locale,
+  displayValue,
+  isEmpty,
+  nativeInputRef,
   onNativeChange,
   onSelect,
+  openNativePicker,
 }: EventDatePickerViewProps) {
-  const styles = eventDatePicker();
+  const styles = eventDatePicker({ empty: isEmpty });
 
   return (
     <div className={styles.root()}>
       <span className={styles.label()}>{content.label}</span>
-      <input
-        type="date"
-        className={styles.native()}
-        value={value}
-        min={minDate}
-        onChange={onNativeChange}
-        aria-label={content.nativeAriaLabel}
-        required
-      />
+      <div className={styles.nativeWrap()}>
+        <button
+          type="button"
+          className={styles.trigger()}
+          onClick={openNativePicker}
+          aria-label={content.nativeAriaLabel}
+        >
+          <span className={styles.triggerValue()}>{displayValue}</span>
+          <CalendarIcon className={styles.triggerIcon()} aria-hidden />
+        </button>
+        <input
+          ref={nativeInputRef}
+          type="date"
+          className={styles.native()}
+          value={value}
+          min={minDate}
+          onChange={onNativeChange}
+          tabIndex={-1}
+          aria-hidden
+          required
+        />
+      </div>
       <div className={styles.calendarWrap()} role="group" aria-label={content.calendarAriaLabel}>
         <Calendar
           mode="single"

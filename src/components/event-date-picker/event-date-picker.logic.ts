@@ -39,3 +39,13 @@ export function localDateToIso(date: Date): string {
 export function startOfToday(now = new Date()): Date {
   return new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
+
+export function formatIsoDateDisplay(isoDate: string, emptyLabel = "--/--/----"): string {
+  const parsed = parseIsoDate(isoDate);
+  if (!parsed) {
+    return emptyLabel;
+  }
+  const day = String(parsed.day).padStart(2, "0");
+  const month = String(parsed.monthIndex + 1).padStart(2, "0");
+  return `${day}/${month}/${parsed.year}`;
+}
