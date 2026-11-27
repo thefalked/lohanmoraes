@@ -15,14 +15,42 @@ function supportsWebgl(): boolean {
 
 /**
  * Fixed full-viewport 3D stage behind the page content.
- * Lazy-loaded so content paints before the Three.js chunk arrives;
- * falls back to the static CSS backdrop for reduced motion / no WebGL.
+ * Deferred until after first paint so the hero scroll stays smooth.
  */
 export function StageCanvas() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    setEnabled(!prefersReducedMotion() && supportsWebgl());
+    if (prefersReducedMotion() || !supportsWebgl()) {
+      return;
+    }
+
+    let idleId = 0;
+    let timeoutId = 0;
+    const arm = () => setEnabled(true);
+
+    // Let the first paint + Lenis settle before mounting WebGL.
+    timeoutId = window.setTimeout(() => {
+      const ric = (
+        window as Window & {
+          requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+        }
+      ).requestIdleCallback;
+      if (typeof ric === "function") {
+        idleId = ric(arm, { timeout: 600 });
+      } else {
+        arm();
+      }
+    }, 180);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      const cic = (window as Window & { cancelIdleCallback?: (id: number) => void })
+        .cancelIdleCallback;
+      if (idleId && typeof cic === "function") {
+        cic(idleId);
+      }
+    };
   }, []);
 
   if (!enabled) {

@@ -5,7 +5,7 @@ import { useBooking } from "../../providers/booking-provider";
 
 const siteFooter = tv({
   slots: {
-    root: "border-t border-border bg-surface/70 px-5 py-10 backdrop-blur-md lg:px-10",
+    root: "border-t border-border/50 bg-surface/50 px-5 py-12 backdrop-blur-xl lg:px-10",
     inner:
       "mx-auto flex max-w-content flex-col gap-4 lg:flex-row lg:items-center lg:justify-between",
     copy: "text-body-sm text-text-muted",

@@ -48,13 +48,23 @@
 
 @layer base {
   html {
-    @apply scroll-smooth stage-scrollbar;
+    @apply stage-scrollbar;
     color-scheme: dark;
+    scroll-behavior: auto;
+  }
+
+  /* Native smooth scroll only when Lenis is off (reduced motion / no JS). */
+  html:not(.lenis) {
+    scroll-behavior: smooth;
   }
 
   html.lenis,
   html.lenis body {
     height: auto;
+  }
+
+  html.lenis {
+    scroll-behavior: auto;
   }
 
   html,
@@ -105,17 +115,42 @@
 
 @utility stage-backdrop-static {
   background:
-    radial-gradient(ellipse 60% 45% at 25% 0%, rgb(224 34 183 / 0.16), transparent 70%),
-    radial-gradient(ellipse 55% 40% at 75% 5%, rgb(138 43 226 / 0.14), transparent 70%),
-    radial-gradient(ellipse 70% 35% at 50% 100%, rgb(255 138 61 / 0.07), transparent 70%), #08060a;
+    radial-gradient(ellipse 55% 40% at 20% 0%, rgb(224 34 183 / 0.18), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 80% 10%, rgb(138 43 226 / 0.14), transparent 72%),
+    radial-gradient(ellipse 60% 30% at 50% 100%, rgb(196 90 176 / 0.08), transparent 70%), #07050b;
 }
 
 @utility stage-panel {
-  background: rgb(10 10 10 / 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
+  background: rgb(10 8 14 / 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgb(245 245 245 / 0.06);
   border-radius: var(--radius-stage);
+}
+
+@utility section-wash {
+  background:
+    linear-gradient(180deg, rgb(224 34 183 / 0.04), transparent 42%),
+    linear-gradient(0deg, rgb(10 10 10 / 0.55), transparent 55%);
+}
+
+@utility ribbon-rule {
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 4.5rem;
+    height: 2px;
+    margin-top: 1rem;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent),
+      var(--color-accent-secondary),
+      transparent
+    );
+  }
 }
 
 @utility stage-scrollbar {
@@ -258,4 +293,28 @@
   --color-text-muted: #a89bb0;
   --color-border: rgb(245 245 245 / 0.1);
   --color-selection: rgb(224 34 183 / 0.35);
+}
+
+/* Adaptive paint cost: keep look, cut compositor work on weak devices. */
+html[data-perf="low"] .backdrop-blur-xl,
+html[data-perf="low"] .backdrop-blur-md,
+html[data-perf="low"] .backdrop-blur-sm {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+html[data-perf="low"] .stage-glow,
+html[data-perf="low"] .stage-glow-strong {
+  text-shadow: none;
+}
+
+html[data-perf="mid"] .backdrop-blur-xl {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-perf] .will-change-transform {
+    will-change: auto;
+  }
 }

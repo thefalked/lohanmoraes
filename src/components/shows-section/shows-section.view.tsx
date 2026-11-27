@@ -6,18 +6,15 @@ import type { useShowsSection } from "./use-shows-section";
 
 const showsSection = tv({
   slots: {
-    root: [
-      "relative scroll-mt-20 border-t border-border bg-surface/35",
-      "px-5 py-24 lg:px-10 lg:py-32",
-    ],
+    root: ["relative scroll-mt-20 border-t border-border/50", "px-5 py-24 lg:px-10 lg:py-32"],
     inner: "mx-auto max-w-content",
-    intro: "mb-12 max-w-2xl",
+    intro: "mb-14 max-w-2xl",
     sub: "mt-4 text-body-lg text-text",
-    track: "flex flex-col gap-6 lg:flex-row lg:flex-wrap lg:justify-center",
+    track: "flex flex-col gap-5 lg:flex-row lg:flex-wrap lg:justify-center lg:gap-6",
     stickyLabel: [
       "pointer-events-none absolute right-5 top-1/2 hidden -translate-y-1/2",
       "font-display text-[clamp(4rem,12vw,10rem)] font-bold uppercase leading-none",
-      "text-accent/10 lg:block",
+      "text-accent/8 lg:block",
     ],
   },
 });

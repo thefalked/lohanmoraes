@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import { site } from "../../data/portfolio";
-import { gsap, isMotionEnabled } from "../../lib/motion";
+import { gsap, isMotionEnabled, ScrollTrigger } from "../../lib/motion";
 import { useBooking } from "../../providers/booking-provider";
 import { heroSectionContent } from "./hero-section.content";
 
@@ -16,35 +16,41 @@ export function useHeroSection() {
     }
 
     const ctx = gsap.context(() => {
-      gsap.from("[data-hero-reveal]", {
-        y: 80,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.12,
+      const revealItems = section.querySelectorAll("[data-hero-reveal]");
+      const fadeTarget = section.querySelector("[data-hero-fade]");
+
+      gsap.set(revealItems, { opacity: 0, y: 56, force3D: true });
+      gsap.to(revealItems, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.1,
         ease: "power3.out",
-        delay: 0.25,
+        delay: 0.15,
+        force3D: true,
       });
 
-      gsap.from("[data-hero-portrait]", {
-        scale: 0.88,
-        opacity: 0,
-        duration: 1.4,
-        ease: "power3.out",
-        delay: 0.5,
-      });
-
-      gsap.to("[data-hero-fade]", {
-        yPercent: -12,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom 35%",
-          scrub: true,
-        },
-      });
+      if (fadeTarget) {
+        gsap.fromTo(
+          fadeTarget,
+          { yPercent: 0, opacity: 1 },
+          {
+            yPercent: -12,
+            opacity: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "bottom 40%",
+              scrub: 0.35,
+              invalidateOnRefresh: true,
+            },
+          },
+        );
+      }
     }, section);
+
+    requestAnimationFrame(() => ScrollTrigger.refresh());
 
     return () => ctx.revert();
   }, []);

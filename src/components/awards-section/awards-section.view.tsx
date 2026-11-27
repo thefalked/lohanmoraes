@@ -5,11 +5,11 @@ import type { useAwardsSection } from "./use-awards-section";
 
 const awardsSection = tv({
   slots: {
-    root: "relative scroll-mt-20 border-t border-border bg-surface/35 px-5 py-24 lg:px-10 lg:py-32",
+    root: "relative scroll-mt-20 border-t border-border/50 section-wash px-5 py-24 lg:px-10 lg:py-32",
     inner: "mx-auto max-w-content",
-    intro: "mb-12 max-w-2xl",
-    list: "flex flex-col gap-10",
-    card: "stage-panel grid gap-8 p-7 lg:grid-cols-2 lg:gap-12 lg:p-10",
+    intro: "mb-14 max-w-2xl",
+    list: "flex flex-col gap-14",
+    card: "grid gap-8 lg:grid-cols-2 lg:gap-14 lg:items-center",
     body: "flex flex-col gap-5",
     place: [
       "font-display text-body-sm font-medium uppercase tracking-[0.2em]",
@@ -18,8 +18,8 @@ const awardsSection = tv({
     title: "font-display text-display-md font-semibold uppercase leading-tight text-text-bright",
     meta: "flex flex-wrap items-center gap-x-3 gap-y-1 text-body-sm uppercase tracking-wide text-text",
     metaDot: "text-accent",
-    description: "text-body-lg text-text",
-    figure: "shimmer overflow-hidden rounded-stage border border-border shadow-stage-card",
+    description: "max-w-xl text-body-lg text-text",
+    figure: "shimmer overflow-hidden rounded-stage aspect-4/5 lg:aspect-auto lg:min-h-[28rem]",
     img: "h-full w-full object-cover",
   },
 });

@@ -8,9 +8,10 @@ const siteHeader = tv({
   slots: {
     root: [
       "fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4",
-      "px-5 py-4 transition-colors duration-300 lg:px-10",
+      "px-5 py-4 transition-[background-color,backdrop-filter,border-color] duration-300 lg:px-10",
+      "border-b border-transparent",
     ],
-    rootScrolled: "bg-surface/80 backdrop-blur-md",
+    rootScrolled: "border-border/40 bg-surface/70 backdrop-blur-xl",
     brandLink: "flex items-center gap-3",
     logo: "h-9 w-auto max-w-[140px] object-contain lg:h-10",
     nav: "hidden items-center gap-6 xl:gap-8 lg:flex",

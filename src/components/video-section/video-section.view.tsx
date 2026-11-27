@@ -21,13 +21,13 @@ function fallbackPoster(event: SyntheticEvent<HTMLImageElement>, youtubeId: stri
 
 const videoSection = tv({
   slots: {
-    root: "relative scroll-mt-20 border-t border-border px-5 py-24 lg:px-10 lg:py-32",
+    root: "relative scroll-mt-20 border-t border-border/50 px-5 py-24 lg:px-10 lg:py-32",
     inner: "mx-auto max-w-content",
     intro: "mb-10 max-w-2xl",
     sub: "mt-4 text-body-lg text-text",
     playerWrap: [
-      "relative overflow-hidden rounded-stage border border-border bg-surface-elevated/80",
-      "shadow-stage-card aspect-video",
+      "relative overflow-hidden rounded-stage aspect-video",
+      "ring-1 ring-border/60 bg-surface-elevated/40",
     ],
     iframe: "h-full w-full",
     poster: [
@@ -43,13 +43,13 @@ const videoSection = tv({
     ],
     thumbs: "mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5",
     thumb: [
-      "group relative overflow-hidden rounded-stage-sm border border-border text-left",
-      "transition-colors hover:border-accent",
+      "group relative overflow-hidden rounded-stage-sm text-left ring-1 ring-border/50",
+      "transition-[box-shadow,opacity] hover:ring-accent/60",
     ],
-    thumbActive: "border-accent shadow-[0_0_0_1px_rgb(224_34_183/0.35)]",
+    thumbActive: "ring-accent/80 shadow-[0_0_0_1px_rgb(224_34_183/0.35)]",
     thumbImg:
-      "aspect-video w-full object-cover opacity-80 transition-opacity group-hover:opacity-100",
-    channel: "mt-6 inline-flex font-display text-body-sm uppercase tracking-widest text-accent",
+      "aspect-video w-full object-cover opacity-75 transition-opacity group-hover:opacity-100",
+    channel: "mt-8 inline-flex font-display text-body-sm uppercase tracking-widest text-accent",
   },
 });
 
@@ -119,12 +119,11 @@ export function VideoSectionView({
             </button>
           )}
         </div>
-        <div className={styles.thumbs()}>
+        <div data-reveal className={styles.thumbs()}>
           {items.map((item) => (
             <button
               key={item.id}
               type="button"
-              data-reveal
               className={styles.thumb({
                 className: item.youtubeId === active.youtubeId ? styles.thumbActive() : "",
               })}

@@ -42,10 +42,18 @@ const particleFragment = /* glsl */ `
 export type StageParticlesProps = {
   count: number;
   color?: string;
+  dprCap?: number;
+  frameStride?: number;
 };
 
-export function StageParticles({ count, color = "#e022b7" }: StageParticlesProps) {
+export function StageParticles({
+  count,
+  color = "#e022b7",
+  dprCap = 2,
+  frameStride = 1,
+}: StageParticlesProps) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const frame = useRef(0);
 
   const geometry = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -73,20 +81,26 @@ export function StageParticles({ count, color = "#e022b7" }: StageParticlesProps
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+      uPixelRatio: {
+        value: Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, dprCap),
+      },
       uColor: { value: new THREE.Color(color) },
     }),
-    [color],
+    [color, dprCap],
   );
 
   useFrame(({ clock }) => {
+    frame.current += 1;
+    if (frameStride > 1 && frame.current % frameStride !== 0) {
+      return;
+    }
     if (materialRef.current) {
       materialRef.current.uniforms.uTime.value = clock.elapsedTime;
     }
   });
 
   return (
-    <points geometry={geometry}>
+    <points geometry={geometry} frustumCulled={false}>
       <shaderMaterial
         ref={materialRef}
         vertexShader={particleVertex}

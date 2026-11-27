@@ -51,7 +51,10 @@ export type LightRibbonProps = {
   phase?: number;
   amp?: number;
   opacity?: number;
+  segments?: [number, number];
   scrollRef: MutableRefObject<number>;
+  /** Update shader every N frames (1 = every frame). */
+  frameStride?: number;
 };
 
 export function LightRibbon({
@@ -63,9 +66,12 @@ export function LightRibbon({
   phase = 0,
   amp = 1.1,
   opacity = 0.22,
+  segments = [48, 12],
   scrollRef,
+  frameStride = 1,
 }: LightRibbonProps) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const frame = useRef(0);
 
   const uniforms = useMemo(
     () => ({
@@ -80,6 +86,10 @@ export function LightRibbon({
   );
 
   useFrame(({ clock }) => {
+    frame.current += 1;
+    if (frameStride > 1 && frame.current % frameStride !== 0) {
+      return;
+    }
     const material = materialRef.current;
     if (!material) {
       return;
@@ -89,8 +99,8 @@ export function LightRibbon({
   });
 
   return (
-    <mesh position={position} rotation={rotation}>
-      <planeGeometry args={[width, height, 64, 16]} />
+    <mesh position={position} rotation={rotation} frustumCulled>
+      <planeGeometry args={[width, height, segments[0], segments[1]]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={ribbonVertex}

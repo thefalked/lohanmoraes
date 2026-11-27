@@ -4,13 +4,12 @@ import type { useProofStrip } from "./use-proof-strip";
 
 const proofStrip = tv({
   slots: {
-    root: "relative border-y border-border bg-surface/40 px-5 py-8 lg:px-10",
-    inner:
-      "mx-auto flex max-w-content flex-col gap-5 lg:flex-row lg:items-center lg:justify-between",
-    list: "flex flex-wrap gap-3",
+    root: "relative section-wash border-y border-border/50 px-5 py-10 lg:px-10",
+    inner: "mx-auto flex max-w-content flex-col gap-6 lg:flex-row lg:items-end lg:justify-between",
+    list: "flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3",
     chip: [
-      "rounded-full border border-border bg-accent-soft px-4 py-2",
-      "font-display text-body-sm uppercase tracking-wide text-text-bright",
+      "font-display text-body-sm uppercase tracking-[0.18em] text-text-bright",
+      "border-l-2 border-accent pl-3",
     ],
     link: [
       "font-display text-body-sm font-medium uppercase tracking-widest text-accent",

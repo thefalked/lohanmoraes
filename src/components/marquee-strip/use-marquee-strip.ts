@@ -32,23 +32,40 @@ export function useMarqueeStrip(items: readonly string[]) {
   useEffect(() => {
     const track = trackRef.current;
     const seq = seqRef.current;
-    if (!track || !seq || !isMotionEnabled()) {
+    const root = rootRef.current;
+    if (!track || !seq || !root || !isMotionEnabled()) {
       return;
     }
 
-    const ctx = gsap.context(() => {
-      const seqWidth = seq.offsetWidth;
-      gsap.set(track, { x: 0 });
-      gsap.to(track, {
-        x: -seqWidth,
-        duration: seqWidth / SPEED,
-        ease: "none",
-        repeat: -1,
-        modifiers: { x: (x) => `${parseFloat(x) % seqWidth}px` },
-      });
-    }, track);
+    const seqWidth = seq.offsetWidth;
+    gsap.set(track, { x: 0, force3D: true });
+    const tween = gsap.to(track, {
+      x: -seqWidth,
+      duration: seqWidth / SPEED,
+      ease: "none",
+      repeat: -1,
+      modifiers: { x: (x) => `${parseFloat(x) % seqWidth}px` },
+    });
 
-    return () => ctx.revert();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) {
+          return;
+        }
+        if (entry.isIntersecting) {
+          tween.resume();
+        } else {
+          tween.pause();
+        }
+      },
+      { rootMargin: "12% 0px", threshold: 0 },
+    );
+    observer.observe(root);
+
+    return () => {
+      observer.disconnect();
+      tween.kill();
+    };
   }, [copies]);
 
   return { rootRef, trackRef, seqRef, copies };

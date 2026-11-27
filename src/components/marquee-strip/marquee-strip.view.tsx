@@ -4,16 +4,21 @@ import { tv } from "tailwind-variants";
 const marqueeStrip = tv({
   slots: {
     root: [
-      "relative overflow-hidden border-y border-border bg-surface/60 py-4",
+      "relative overflow-hidden border-y border-border/60 py-5",
+      "bg-linear-to-r from-accent/5 via-transparent to-accent-secondary/5",
       "pointer-events-none select-none",
+      "before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:z-10 before:w-16",
+      "before:bg-linear-to-r before:from-surface before:to-transparent",
+      "after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:z-10 after:w-16",
+      "after:bg-linear-to-l after:from-surface after:to-transparent",
     ],
     track: "flex w-max items-center whitespace-nowrap will-change-transform",
     seq: "flex items-center",
     item: [
       "flex items-center gap-8 pr-8 font-display text-display-md font-bold uppercase",
-      "tracking-tight text-text-bright/25",
+      "tracking-tight text-text-bright/20",
     ],
-    dot: "text-accent/60",
+    dot: "text-accent/50",
   },
 });
 
@@ -42,7 +47,7 @@ export function MarqueeStripView({
             {items.map((item) => (
               <span key={`${copy}-${item}`} className={styles.item()}>
                 {item}
-                <span className={styles.dot()}>✦</span>
+                <span className={styles.dot()}>/</span>
               </span>
             ))}
           </div>

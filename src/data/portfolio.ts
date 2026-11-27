@@ -78,8 +78,8 @@ export function showQuoteUrl(packageTitle: string): string {
 
 export const site = {
   name: "Lohan Moraes",
-  tagline: "Cantor para eventos",
-  roles: ["Cantor para eventos"],
+  tagline: "Shows ao vivo",
+  roles: ["Shows ao vivo"],
   heroImage: "/photos/hero-lohan.jpeg",
   logoImage: "/photos/lohan-logo.png",
   brand: "LMart",
@@ -91,7 +91,6 @@ export const navItems: NavItem[] = [
   { id: "ao-vivo", label: "Ao vivo", href: "#ao-vivo" },
   { id: "premios", label: "Prêmios", href: "#premios" },
   { id: "shows", label: "Shows", href: "#shows" },
-  { id: "ensino", label: "Ensino", href: "#ensino" },
   { id: "contato", label: "Contato", href: "#contato" },
 ];
 
@@ -153,9 +152,13 @@ export const bio = {
   headline: "Música ao vivo com alma e energia de palco",
   paragraphs: [
     "Cantor e instrumentista, Lohan Moraes sobe ao palco de casamentos, festas e eventos corporativos com a experiência de quem já entregou do acústico intimista à banda completa com efeitos de palco. Cada formato é desenhado para o seu público, com produção, som e montagem pensados para a noite.",
-    "Fora do palco, também oferece aulas de instrumentos e produção musical pela LMart. O foco deste site é contratar o show certo para o seu evento.",
+    "O foco deste site é contratar o show certo para o seu evento. Escolha o formato, envie a data e a LMart retorna com o orçamento completo.",
   ],
   photos: [
+    {
+      src: "/photos/lohan-performance.jpeg",
+      alt: "Lohan Moraes cantando e tocando violão ao vivo",
+    },
     {
       src: "/photos/lohan-1819.jpeg",
       alt: "Lohan Moraes cantando com microfone",
@@ -163,10 +166,6 @@ export const bio = {
     {
       src: "/photos/lohan-3864.jpeg",
       alt: "Lohan Moraes em retrato profissional",
-    },
-    {
-      src: "/photos/lohan-performance.jpeg",
-      alt: "Lohan Moraes cantando e tocando violão ao vivo",
     },
   ],
 } as const;
@@ -221,21 +220,6 @@ export const showPackages: ShowPackage[] = [
     instruments: ["Violão", "Sanfona", "Bateria", "Contrabaixo"],
   },
 ];
-
-export const teaching = {
-  headline: "Aprenda com quem vive a música",
-  lessonsLabel: "Aulas de",
-  description:
-    "Aulas personalizadas, do primeiro acorde ao repertório pronto para o palco. (Não há aulas de canto.)",
-  instruments: ["Violão", "Viola", "Bateria", "Guitarra", "Teclado", "Teoria musical"],
-  production: {
-    headline: "Produção & audiovisual",
-    items: [
-      "Produção musical de faixas, guias e conteúdo para DVD",
-      "Produção audiovisual: gravação, edição e entrega de vídeos para seus projetos",
-    ],
-  },
-} as const;
 
 export const contact = {
   phone: "(67) 99631-4355",

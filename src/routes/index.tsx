@@ -7,7 +7,6 @@ import { HeroSection } from "../components/hero-section";
 import { MarqueeStrip } from "../components/marquee-strip";
 import { ProofStrip } from "../components/proof-strip";
 import { ShowsSection } from "../components/shows-section";
-import { TeachingSection } from "../components/teaching-section";
 import { VideoSection } from "../components/video-section";
 import { site } from "../data/portfolio";
 
@@ -27,7 +26,6 @@ function HomePage() {
       <VideoSection />
       <AwardsSection />
       <ShowsSection />
-      <TeachingSection />
       <MarqueeStrip items={marqueeItems} />
       <ContactSection />
     </>

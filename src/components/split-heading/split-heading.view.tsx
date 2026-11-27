@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 const splitHeading = tv({
   slots: {
-    root: "flex flex-col gap-1",
+    root: "ribbon-rule flex flex-col gap-1",
     line: [
       "font-display font-semibold uppercase tracking-tight text-text-bright",
       "text-display-md lg:text-display-lg",
